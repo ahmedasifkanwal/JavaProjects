@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <constant name="struts.custom.i18n.resources" value="message" />
+
+    <constant name="struts.devMode" value="true" />
+    <constant name="struts.action.extension" value="icms"/>
+    <constant name="struts.multipart.maxSize" value="22020000" />
+    <constant name="struts.convention.result.path" value="/"></constant>
+    <package name="struts_location" extends="struts-default"   namespace="/">
+
+        <result-types>
+            <result-type name="tiles"
+                         class="org.apache.struts2.views.tiles.TilesResult" />
+        </result-types>
+        <interceptors>
+            <interceptor name="SessionCheck" class="com.info.cms.interceptor.SessionCheckInterceptor"/>
+            <interceptor-stack name="sessionExpirayStack">
+                <interceptor-ref name="SessionCheck" />
+                <interceptor-ref name="defaultStack" />
+                
+             
+            </interceptor-stack>
+        </interceptors>
+        <default-action-ref name="common.page.not.found" ></default-action-ref>
+        <global-results>
+            <result name="GLOBALERROR" >/layoutcommon/GlobalError.jsp</result>
+        </global-results>
+        <action name="common.page.not.found" >
+            <interceptor-ref name="sessionExpirayStack">
+            </interceptor-ref>
+            <result name="invalidsession">Login.jsp</result>
+            <result name="success" >/layoutcommon/PageNotFound.jsp</result>
+        </action>
+
+
+
+
+        <action name="searchvlan"  method="search" class="com.info.cms.action.VlanAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">Login.jsp</result>
+            <result name="success" type="tiles" >/SearchVlan.tiles</result>
+            <result name="error">Login.jsp</result>
+        </action>
+
+        <action name="searchgroup"  method="search" class="com.info.cms.action.VlanAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">Login.jsp</result>
+            <result name="success" type="tiles" >/SearchGroup.tiles</result>
+            <result name="error">Login.jsp</result>
+        </action>
+
+
+        <action name="searchaccount"  method="search" class="com.info.cms.action.WifiAccountAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">Login.jsp</result>
+            <result name="success" type="tiles" >/searchaccount.tiles</result>
+            <result name="error">Login.jsp</result>
+        </action>
+        <action name="searchaccountimsi"  method="search" class="com.info.cms.action.WifiAccountAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">Login.jsp</result>
+            <result name="success" type="tiles" >/searchaccountimsi.tiles</result>
+            <result name="error">Login.jsp</result>
+        </action>
+
+
+        <action name="singleuser"  method="search" class="com.info.cms.action.WifiAccountAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">Login.jsp</result>
+            <result name="success" type="tiles" >/singleuser.tiles</result>
+            <result name="error">Login.jsp</result>
+        </action>
+        <action name="wifiuser"  method="search" class="com.info.cms.action.WifiAccountAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">Login.jsp</result>
+            <result name="success" type="tiles" >/wifiuser.tiles</result>
+            <result name="error">Login.jsp</result>
+        </action>
+
+
+        <action name="searchcustomer"  method="search" class="com.info.cms.action.BusinessOwnerAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">Login.jsp</result>
+            <result name="success" type="tiles" >/searchcustomer.tiles</result>
+            <result name="error">Login.jsp</result>
+        </action>
+
+        <!--End-->
+    </package>
+</struts>

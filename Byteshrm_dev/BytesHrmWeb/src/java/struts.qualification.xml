@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    
+    <package name="default_education" extends="struts-default"   namespace="/">
+
+        <result-types>
+            <result-type name="tiles"
+                         class="org.apache.struts2.views.tiles.TilesResult" />
+        </result-types>
+        <interceptors>
+            <interceptor name="SessionCheck" class="com.bytes.hrm.interceptor.SessionCheckInterceptor"/>
+            <interceptor-stack name="sessionExpirayStack">
+                <interceptor-ref name="SessionCheck" />
+                <interceptor-ref name="defaultStack" />
+                
+             
+            </interceptor-stack>
+        </interceptors>
+        <default-action-ref name="common.page.not.found" ></default-action-ref>
+        <global-results>
+            <result name="GLOBALERROR" >/layoutcommon/GlobalError1.jsp</result>
+        </global-results>
+        <action name="common.page.not.found" >
+            <interceptor-ref name="sessionExpirayStack">
+            </interceptor-ref>
+            <result name="invalidsession">Login.jsp</result>
+            <result name="success" >/layoutcommon/PageNotFound.jsp</result>
+        </action>
+
+
+        <!--BEGIN SKILL-->  
+        
+        <action name="mSkills"  method="search" class="com.bytes.hrm.action.qualification.SkillAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success"  >/layoutqualification/ManageSkills.jsp</result>
+            <result name="error">/layoutqualification/ManageSkills.jsp</result>
+        </action>
+       
+
+        <action name="aSkills"    method="save" class="com.bytes.hrm.action.qualification.SkillAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutqualification/AddSkills.jsp</result>          
+            <result name="forward" type="redirectAction" >/mSkills</result>
+              
+        </action>   
+        
+      
+        <action name="eSkills"   method="edit"  class="com.bytes.hrm.action.qualification.SkillAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutqualification/EditSkills.jsp</result>
+            <result name="forward" type="redirectAction" >/mSkills</result>
+        </action>
+        
+        <action name="oSkills"   class="com.bytes.hrm.action.qualification.SkillAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutqualification/AddSkills.jsp</result>
+            <result name="forward" type="redirectAction" >/mSkills</result>
+        </action>
+        
+        <action name="gSkills"   method="getSelected"  class="com.bytes.hrm.action.qualification.SkillAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutqualification/EditSkills.jsp</result>
+            <result name="forward" type="redirectAction" >/mSkills</result>
+        </action>
+        
+           <!--END SKILL-->  
+           
+            <!--BEGIN EDUCATION-->  
+        
+        <action name="mEducation"  method="search" class="com.bytes.hrm.action.qualification.EducationAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success"  >/layoutqualification/ManageEducation.jsp</result>
+            <result name="error">/layoutqualification/ManageEducation.jsp</result>
+        </action>
+        
+         <action name="aEducation"  method="save" class="com.bytes.hrm.action.qualification.EducationAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success"  >/layoutqualification/AddEducation.jsp</result>
+             <result name="forward" type="redirectAction" >/mEducation</result>
+        </action>
+        
+        <action name="gEducation"  method="getSelected" class="com.bytes.hrm.action.qualification.EducationAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success"  >/layoutqualification/EditEducation.jsp</result>
+          <result name="forward" type="redirectAction" >/mEducation</result>
+        </action>
+         <action name="eEducation"  method="edit" class="com.bytes.hrm.action.qualification.EducationAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success"  >/layoutqualification/EditEducation.jsp</result>
+          <result name="forward" type="redirectAction" >/mEducation</result>
+        </action>
+        
+        <action name="oEducation" class="com.bytes.hrm.action.qualification.EducationAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success"  >/layoutqualification/AddEducation.jsp</result>
+          <result name="forward" type="redirectAction" >/mEducation</result>
+        </action>
+
+        <!--BEGIN EDUCATION-->  
+        
+        
+           <!--BEGIN License-->  
+        
+        <action name="mLicense"  method="search" class="com.bytes.hrm.action.qualification.LicenseAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success"  >/layoutqualification/ManageLicense.jsp</result>
+            <result name="error">/layoutqualification/ManageLicense.jsp</result>
+        </action>
+        
+         <action name="aLicense"  method="save" class="com.bytes.hrm.action.qualification.LicenseAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success"  >/layoutqualification/AddLicense.jsp</result>
+             <result name="forward" type="redirectAction" >/mLicense</result>
+        </action>
+        
+        <action name="oLicense"   class="com.bytes.hrm.action.qualification.LicenseAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success"  >/layoutqualification/AddLicense.jsp</result>
+             <result name="forward" type="redirectAction" >/mLicense</result>
+        </action>
+        
+        
+         <action name="eLicense"  method="edit" class="com.bytes.hrm.action.qualification.LicenseAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success"  >/layoutqualification/EditLicense.jsp</result>
+          <result name="forward" type="redirectAction" >/mLicense</result>
+        </action>
+        
+        <action name="gLicense"  method="getSelected" class="com.bytes.hrm.action.qualification.LicenseAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success"  >/layoutqualification/EditLicense.jsp</result>
+          <result name="forward" type="redirectAction" >/mLicense</result>
+        </action>
+
+        <!--BEGIN License-->  
+        
+        
+        
+           <!--BEGIN Language-->  
+        
+        <action name="mLanguage"  method="search" class="com.bytes.hrm.action.qualification.LanguageAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success"  >/layoutqualification/ManageLanguage.jsp</result>
+            <result name="error">/layoutqualification/ManageLanguage.jsp</result>
+        </action>
+        
+         <action name="aLanguage"  method="save" class="com.bytes.hrm.action.qualification.LanguageAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success"  >/layoutqualification/AddLanguage.jsp</result>
+             <result name="forward" type="redirectAction" >/mLanguage</result>
+        </action>
+        
+         <action name="oLanguage"   class="com.bytes.hrm.action.qualification.LanguageAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success"  >/layoutqualification/AddLanguage.jsp</result>
+             <result name="forward" type="redirectAction" >/mLanguage</result>
+        </action>
+        
+        
+         <action name="eLanguage"  method="edit" class="com.bytes.hrm.action.qualification.LanguageAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success"  >/layoutqualification/EditLanguage.jsp</result>
+          <result name="forward" type="redirectAction" >/mLanguage</result>
+        </action>
+         <action name="gLanguage"  method="getSelected" class="com.bytes.hrm.action.qualification.LanguageAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success"  >/layoutqualification/EditLanguage.jsp</result>
+          <result name="forward" type="redirectAction" >/mLanguage</result>
+        </action>
+
+        <!--BEGIN Language-->  
+        
+        
+           <!--BEGIN Membership-->  
+        
+        <action name="mMembership"  method="search" class="com.bytes.hrm.action.qualification.MembershipAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success"  >/layoutqualification/ManageMembership.jsp</result>
+            <result name="error">/layoutqualification/ManageMembership.jsp</result>
+        </action>
+        
+         <action name="aMembership"  method="save" class="com.bytes.hrm.action.qualification.MembershipAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success"  >/layoutqualification/AddMembership.jsp</result>
+             <result name="forward" type="redirectAction" >/mMembership</result>
+        </action>
+        
+         <action name="oMembership"   class="com.bytes.hrm.action.qualification.MembershipAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success"  >/layoutqualification/AddMembership.jsp</result>
+             <result name="forward" type="redirectAction" >/mMembership</result>
+        </action>
+        
+         <action name="eMembership"  method="edit" class="com.bytes.hrm.action.qualification.MembershipAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success"  >/layoutqualification/EditMembership.jsp</result>
+          <result name="forward" type="redirectAction" >/mMembership</result>
+        </action>
+        
+         <action name="gMembership"  method="getSelected" class="com.bytes.hrm.action.qualification.MembershipAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success"  >/layoutqualification/EditMembership.jsp</result>
+          <result name="forward" type="redirectAction" >/mMembership</result>
+        </action>
+        
+
+        <!--BEGIN Membership-->  
+        
+        
+    </package>
+</struts>

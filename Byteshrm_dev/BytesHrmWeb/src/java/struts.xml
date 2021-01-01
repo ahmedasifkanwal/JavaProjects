@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    
+    
+    <constant name="struts.custom.i18n.resources" value="hrmui,hrmconstant,hrmerror" /> 
+    <constant name="struts.i18n.reload" value="false" />
+    <constant name="struts.devMode" value="false" />
+    <constant name="struts.action.extension" value="itb"/>
+    <constant name="struts.configuration.xml.reload" value="false" />
+    <constant name="struts.multipart.maxSize" value="22020000" />
+    <constant name="struts.convention.result.path" value="/"></constant>       
+    
+    
+    <include file="struts.system.xml"/>     
+    <include file="struts.organization.xml"/>
+    <include file="struts.configuration.xml"/>
+    <include file="struts.qualification.xml"/>
+    <include file="struts.pim.employee.xml"/>
+    <include file="struts.pim.skill.xml"/>
+     <include file="struts.leave.xml"/>
+    <include file="struts.job.xml"/>
+    <include file="struts.json.xml"/>
+     <include file="struts.pim.performance.xml"/>
+      <include file="struts.pim.recruitment.xml"/>
+       <include file="struts.asset.xml"/>
+    
+    
+   
+
+    
+</struts>

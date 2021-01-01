@@ -1,0 +1,27 @@
+
+/*.full {
+    background: url(01_WORLDWIDE_1920.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}*/
+img {
+/*    background-image: url(bgBanner.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;*/
+    width: 100vw;
+    height: 100vh;
+}
+.txtwrap {
+    position: absolute;
+    z-index:1000;
+    color: darkblue;
+    font-size:3vh;
+    top:3;
+}
+
+#skip {
+    display : none;
+}

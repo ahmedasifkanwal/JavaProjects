@@ -1,0 +1,215 @@
+
+<%@page import="java.util.logging.Level"%>
+<%@page import="java.util.logging.Logger"%>
+<%@page import="com.info.cms.action.MyActionSupport"%>
+<%@page import="com.info.wifi.cms.entity.Vlan"%>
+<%@page import="com.info.cms.facade.ReferenceData"%>
+<%@page import="com.sun.org.apache.bcel.internal.generic.AALOAD"%>
+<%@page import="java.util.List"%>
+<%@page import="com.info.cms.report.graph.UIBarChartData"%>
+<%@page import="com.info.cms.helper.UIConstants"%>
+<%@page import="com.info.cms.helper.DateHelper"%>
+<%@page import="com.info.cms.helper.StringHelper"%>
+<%@page import="com.info.wifi.cms.entity.SysUsers"%>
+<%@page import="com.info.cms.presentation.entity.PeReportInputValue"%>
+<%@page import="org.json.simple.parser.JSONParser"%>
+<%@page import="org.json.simple.JSONObject"%>
+<%@page import="java.io.InputStreamReader"%>
+<%@page import="java.io.BufferedReader"%>
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%// select count(*),DATE_CREATION from accountuser where remarks='KIOSK' and owner_name='OAMC' and vlan=130 and DATE_FIRSTLOGIN is not null
+    JSONObject obj = new JSONObject();
+    obj = new JSONObject();
+    Logger logger = Logger.getLogger("JsonKioskStatistic");
+    int cypher = 0;
+    try {
+
+        PeReportInputValue peReportInput = new PeReportInputValue(request.getParameter("data").toString());
+        cypher = Integer.parseInt(peReportInput.getFilterCode());
+        SysUsers user = (SysUsers) session.getAttribute("Users");
+        if (user.getUserAuthority().equalsIgnoreCase(UIConstants.ADVERTISER_AUTHORITY)) {
+            peReportInput.setOwnerName(user.getOwner());
+        }
+
+        com.info.wifi.rad.entity.controller.GenericJpaController radFacade = new com.info.wifi.rad.entity.controller.GenericJpaController();
+
+        if (session.getAttribute("Users") != null) {
+            SysUsers users = (SysUsers) session.getAttribute("Users");
+            peReportInput.setLoggedInUser(users.getUsername());
+        }
+
+        String dateRange = "to_date('" + DateHelper.getSearchFormated(peReportInput.getDaterange()
+                    .split(UIConstants.DATE_SEPRATOR)[0],
+                    DateHelper.DATE_TYPE.BEGIN) + "','yyyy-MM-dd HH24:MI:SS')" + " and "
+                    + "to_date('" + DateHelper.getSearchFormated(peReportInput.getDaterange().split(UIConstants.DATE_SEPRATOR)[1], DateHelper.DATE_TYPE.END) + "','yyyy-MM-dd HH24:MI:SS')";
+
+        String condition = " where  remarks='KIOSK'  and";
+        condition = condition + "   l.DATE_CREATION between " + dateRange + "  and";
+            if (!StringHelper.isNullOrEmpty(peReportInput.getVlanId()) && !peReportInput.getVlanId().equals("-1")) {
+                condition = condition + "  l.vlan ='" + peReportInput.getVlanId() + "'  and";
+            }
+            if (!StringHelper.isNullOrEmpty(peReportInput.getOwnerName()) && !peReportInput.getOwnerName().equals("-1")) {
+                condition = condition + "  l.owner_name ='" + peReportInput.getOwnerName() + "'  and";
+                String vlans = ReferenceData.getOwnersVlans(peReportInput.getOwnerName());
+                condition = condition + " l.vlan in (" + vlans + ")" + "  and";
+            }
+
+        if (!StringHelper.isNullOrEmpty(condition)) {
+            condition = condition.substring(0, condition.length() - 3);
+        }
+        String DBTable = "accountuser";
+        if (peReportInput.isExpired()) {
+            DBTable = "accountuser_expired";
+        }
+        StringBuilder categories = new StringBuilder();
+        StringBuilder series0 = new StringBuilder();
+        StringBuilder series1 = new StringBuilder();
+        StringBuilder table = new StringBuilder();
+        Integer count = 0, uncount = 0;
+        String dateFormat = "'HH24:AM'", SQL = "";
+        StringBuilder datatable = new StringBuilder();
+        if (peReportInput.getDurationType().equalsIgnoreCase("HOURLY")) {
+            dateFormat = "'HH24:AM'";
+            SQL = "select   TO_CHAR(l.DATE_CREATION, " + dateFormat + ") as loginHour , count(*), count(case when DATE_FIRSTLOGIN is not null THEN 1 end) from "
+                        + "" + DBTable + " l  " + condition + "   group by  TO_CHAR(l.DATE_CREATION," + dateFormat + ")   "
+                        + "   order by TO_CHAR(l.DATE_CREATION, " + dateFormat + ") asc";
+        }
+        if (peReportInput.getDurationType().equalsIgnoreCase("DAILY")) {
+            dateFormat = "'MON-DD-YY'";
+            SQL = "select   TO_CHAR(l.DATE_CREATION, " + dateFormat + ") as loginHour , count(*), count(case when DATE_FIRSTLOGIN is not null THEN 1 end), min(l.DATE_CREATION)  from "
+                        + "" + DBTable + " l  " + condition + "   group by  TO_CHAR(l.DATE_CREATION," + dateFormat + ")   "
+                        + "   order by  min(l.DATE_CREATION)  asc";
+
+        }
+
+        if (peReportInput.getDurationType().equalsIgnoreCase("MONTHLY")) {
+            dateFormat = "'MON-YY'";
+            SQL = "select   TO_CHAR(l.DATE_CREATION, " + dateFormat + ") as loginHour , count(*), count(case when DATE_FIRSTLOGIN is not null THEN 1 end), min(l.DATE_CREATION)  from "
+                        + "" + DBTable + " l  " + condition + "   group by  TO_CHAR(l.DATE_CREATION," + dateFormat + ")   "
+                        + "   order by  min(l.DATE_CREATION)  asc";
+
+        }
+
+        if (peReportInput.getDurationType().equalsIgnoreCase("WEEKLY")) {
+            dateFormat = "'DAY'";
+            SQL = "select   TO_CHAR(l.DATE_CREATION, " + dateFormat + ") as loginHour , count(*), count(case when DATE_FIRSTLOGIN is not null THEN 1 end), min(l.DATE_CREATION)  from "
+                        + "" + DBTable + " l  " + condition + "   group by  TO_CHAR(l.DATE_CREATION," + dateFormat + ")   "
+                        + "   order by  min(l.DATE_CREATION)  asc";
+
+        }
+
+        if (peReportInput.getDurationType().equalsIgnoreCase("LOCATION")) {
+
+            SQL = "select   l.LOCATION_ID , count(*), count(case when DATE_FIRSTLOGIN is not null THEN 1 end)  from "
+                        + "" + DBTable + " l  " + condition + "   group by   l.LOCATION_ID order by count(*) DESC";
+
+        }
+
+        if (peReportInput.getDurationType().equalsIgnoreCase("OWNER")) {
+
+            SQL = "select   l.OWNER_NAME , count(*), count(case when DATE_FIRSTLOGIN is not null THEN 1 end)  from "
+                        + "" + DBTable + " l  " + condition + "   group by   l.OWNER_NAME order by count(*) DESC";
+
+        }
+
+       
+
+      
+
+        if (peReportInput.getDurationType().equalsIgnoreCase("YEARLY")) {
+            dateFormat = "'YYYY'";
+            SQL = "select   TO_CHAR(l.DATE_CREATION, " + dateFormat + ") as loginHour , count(*), count(case when DATE_FIRSTLOGIN is not null THEN 1 end), min(l.DATE_CREATION)  from "
+                        + "" + DBTable + " l  " + condition + "   group by  TO_CHAR(l.DATE_CREATION," + dateFormat + ")   "
+                        + "   order by  min(l.DATE_CREATION)  asc";
+
+        }
+
+        List list = radFacade.getAggDynamicReport(SQL);
+
+        if (list != null && list.size() > 0) {
+
+            for (int j = 0; j < list.size(); j++) {
+                Object[] data = (Object[]) list.get(j);
+                if (data[0] == null) {
+                        data[0] = "NA";
+                    }
+                if (cypher > 0 && j < cypher) {
+                    categories.append("'").append(data[0]).append("',");
+                    series0.append("").append(data[1]).append(",");
+                    series1.append("").append(data[2]).append(",");
+                        }
+
+                if (cypher == 0) {
+
+                    categories.append("'").append(data[0]).append("',");
+                    series0.append("").append(data[1]).append(",");
+                    series1.append("").append(data[2]).append(",");
+                        }
+
+                table.append("<tr><td>").append(j + 1).append("</td>")
+                            .append("<td>").append(peReportInput.getDaterange()).append("</td>");
+
+                if (peReportInput.getDurationType().equalsIgnoreCase("LOCATION")) {
+                    Vlan vlan = ReferenceData.getVlan(data[0].toString());
+                    String vlan1 = (vlan == null ? "" : vlan.getVlanName());
+                    String owner1 = (vlan == null ? "" : vlan.getHotspotOwner());
+
+                    table.append("<td>").append(vlan1).append("</td>")
+                                .append("<td>").append(owner1).append("</td>");
+
+                } else {
+                    table.append("<td>").append(data[0].toString()).append("</td>")
+                                .append("<td>").append(peReportInput.getOwnerName()).append("</td>");
+
+                }
+
+                table.append("<td>").append(peReportInput.getVlanId()).append("</td>")
+                            .append("<td>").append(peReportInput.getDurationType()).append("</td>")
+                            .append("<td>").append(data[1].toString()).append("</td>")
+                            .append("<td>").append(data[2].toString()).append("</td></tr>");
+
+                count = count + Integer.parseInt(data[1].toString());
+
+                uncount = uncount + Integer.parseInt(data[2].toString());
+
+            }
+            table.append("<tr><td>").append("&nbsp").append("</td>")
+                            .append("<td>").append("&nbsp").append("</td>")
+                            .append("<td>").append("&nbsp").append("</td>")
+                            .append("<td>").append("&nbsp").append("</td>")
+                            .append("<td>").append(peReportInput.getVlanId()).append("</td>")
+                            .append("<td> <b>").append("Total").append("</b></td>")
+                            .append("<td><b>").append(count).append("</b></td>")
+                            .append("<td><b>").append(uncount).append("</b></td></tr>");
+                }
+
+        datatable = new StringBuilder("<table aria-describedby=\"datatable_info\" class=\"table table-striped table-bordered table-hover\" id=\"datatable\" style=\"text-align: center\">")
+                    .append("<thead><tr><th style='text-align:center' >#</th><th style='text-align:center'>Date</th><th style='text-align:center'>Value</th><th style='text-align:center'>Businesss Owner</th> <th style='text-align:center'>Vlan</th> <th style='text-align:center'>Filter</th> <th style='text-align:center'>Activation</th><th style='text-align:center'>Unique Activation</th> </tr> </thead>")
+                    .append(" <tbody>")
+                    .append(table.toString())
+                    .append(" </tbody>   </table> ");
+
+        obj.put("categories", "[" + categories + "]");
+        obj.put("seriestable", "[" + series0 + "]");
+        obj.put("seriestable1", "[" + series1 + "]");
+        obj.put("seriestabletotal", peReportInput.isExpired());
+        obj.put("datatable", datatable.toString());
+
+    } catch (Exception ex) {
+        System.out.print(ex);
+        logger.log(Level.SEVERE, ex.getMessage());
+
+    } finally {
+        out.print(obj);
+        out.flush();
+    }
+
+
+%>
+
+
+<%!
+    public String doSomething(String param) {
+        return null;  //
+    }
+%>

@@ -1,0 +1,147 @@
+
+<%@page import="java.util.logging.Level"%>
+<%@page import="java.util.logging.Logger"%>
+<%@page import="com.info.cms.action.MyActionSupport"%>
+<%@page import="com.info.wifi.cms.entity.Vlan"%>
+<%@page import="com.info.cms.facade.ReferenceData"%>
+<%@page import="com.sun.org.apache.bcel.internal.generic.AALOAD"%>
+<%@page import="java.util.List"%>
+<%@page import="com.info.cms.report.graph.UIBarChartData"%>
+<%@page import="com.info.cms.helper.UIConstants"%>
+<%@page import="com.info.cms.helper.DateHelper"%>
+<%@page import="com.info.cms.helper.StringHelper"%>
+<%@page import="com.info.wifi.cms.entity.SysUsers"%>
+<%@page import="com.info.cms.presentation.entity.PeReportInputValue"%>
+<%@page import="org.json.simple.parser.JSONParser"%>
+<%@page import="org.json.simple.JSONObject"%>
+<%@page import="java.io.InputStreamReader"%>
+<%@page import="java.io.BufferedReader"%>
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%
+    JSONObject obj = new JSONObject();
+    obj = new JSONObject();
+    Logger logger = Logger.getLogger("Loginstatistics");
+    try {
+        SysUsers user = (SysUsers) session.getAttribute("Users");
+        logger.info("SQL 1: 1 "+ request.getParameter("data").toString());
+        PeReportInputValue peReportInput = new PeReportInputValue(request.getParameter("data").toString());
+        com.info.wifi.cms.entity.controller.GenericJpaController cmsFacade = new com.info.wifi.cms.entity.controller.GenericJpaController();
+        if (user.getUserAuthority().equalsIgnoreCase(UIConstants.ADVERTISER_AUTHORITY)) {
+            peReportInput.setOwnerName(user.getOwner());
+        }
+
+        if (session.getAttribute("Users") != null) {
+            SysUsers users = (SysUsers) session.getAttribute("Users");
+            peReportInput.setLoggedInUser(users.getUsername());
+        }
+
+        String dateRange = "to_date('" + DateHelper.getSearchFormated(peReportInput.getDaterange()
+                    .split(UIConstants.DATE_SEPRATOR)[0],
+                    DateHelper.DATE_TYPE.BEGIN) + "','yyyy-MM-dd HH24:MI:SS')" + " and "
+                    + "to_date('" + DateHelper.getSearchFormated(peReportInput.getDaterange().split(UIConstants.DATE_SEPRATOR)[1], DateHelper.DATE_TYPE.END) + "','yyyy-MM-dd HH24:MI:SS')";
+
+        String condition = " where  SCHEDULE_DATETIME between " + dateRange + "  and";
+
+        if (!StringHelper.isNullOrEmpty(peReportInput.getVlanId()) && !peReportInput.getVlanId().equals("-1")) {
+            condition = condition + " VLAN_ID in(" + peReportInput.getVlanId() + ")  and";
+        }
+        if (!StringHelper.isNullOrEmpty(peReportInput.getOwnerName()) && !peReportInput.getOwnerName().equals("-1")) {
+            condition = condition + " MSG_SOURCE_REF like'%" + peReportInput.getOwnerName() + "%'  and";
+        }
+        if (!StringHelper.isNullOrEmpty(peReportInput.getStatus()) && !peReportInput.getStatus().equals("-1")) {
+            condition = condition + " SENT ='" + peReportInput.getStatus() + "'  and";
+        }
+
+        if (!StringHelper.isNullOrEmpty(peReportInput.getMobile())) {
+            condition = condition + " MSISDN like '%" + peReportInput.getMobile() + "%'  and";
+        }
+
+        if (!StringHelper.isNullOrEmpty(condition)) {
+            condition = condition.substring(0, condition.length() - 3);
+        }
+        String DBTable = "MSGSENT";
+        if (peReportInput.isExpired()) {
+            DBTable = "MSGSENT_expired";
+        }
+
+        StringBuilder table = new StringBuilder();
+
+        String SQL = "";
+        StringBuilder datatable = new StringBuilder();
+        if (peReportInput.getReportId().equals("RPT_SMS")) {
+            SQL = "  select MSISDN,SENT,MESSAGE,to_char(SCHEDULE_DATETIME,'dd-MON-YY HH24:MI:SS'),    to_char(DATETIME_SENT,'dd-MON-YY HH24:MI:SS'), VLAN_ID,COUNTRY_CODE "
+                    + " from  " + DBTable + "   " + condition + " ORDER BY  SCHEDULE_DATETIME DESC";
+
+            List list = cmsFacade.getAggDynamicReport(SQL);
+
+            if (list != null && list.size() > 0) {
+
+                for (int j = 0; j < list.size(); j++) {
+                    Object[] data = (Object[]) list.get(j);
+
+                    table.append("<tr><td>").append(j + 1).append("</td>")
+                            .append("<td>").append(data[0].toString()).append("</td>")
+                            .append("<td >").append(data[1].toString()).append("</td>")
+                            .append("<td>").append(data[2].toString().replace(".", ".<br/>")).append("</td>")
+                            .append("<td  >").append(data[3].toString()).append("</td>")
+                            .append("<td >").append(data[4] == null ? "NA" : data[4].toString()).append("</td>")
+                            .append("<td>").append(data[5] == null ? "NA" : data[5].toString()).append("</td>")
+                            .append("<td>").append(data[6] == null ? "NA" : data[6].toString()).append("</td></tr>");
+
+                }
+            }
+
+            datatable = new StringBuilder("<table  width=\"70%\"  id=\"datatable\"   class=\"table table-bordered\" style=\"text-align: center; \" >")
+                            .append("<thead><tr><th style='text-align:center' >#</th><th style='text-align:center'>Mobile</th><th style='text-align:center'>Status</th><th style='text-align:center;width:30px '>Message</th> <th style='text-align:center'>Schedule Time</th> <th style='text-align:center'>Delivery Time</th> <th style='text-align:center'>Vlan</th><th style='text-align:center'>Country Code</th> </tr> </thead>")
+                            .append(" <tbody>")
+                            .append(table.toString())
+                            .append(" </tbody>  </table>");
+                    obj.put("datatable", datatable.toString());
+                }
+
+        if (peReportInput.getReportId().equals("RPT_FAULT_SMS")) {
+            SQL = "  select to_char(SCHEDULE_DATETIME,'dd-MON-YY'),VLAN_ID , Sent, Count(*) "
+                        + " from  " + DBTable + "   " + condition + " group by to_char(SCHEDULE_DATETIME,'dd-MON-YY'),VLAN_ID , Sent ORDER BY  to_char(SCHEDULE_DATETIME,'dd-MON-YY')";
+
+            List list = cmsFacade.getAggDynamicReport(SQL);
+
+            if (list != null && list.size() > 0) {
+
+                for (int j = 0; j < list.size(); j++) {
+                    Object[] data = (Object[]) list.get(j);
+
+                    table.append("<tr><td>").append(j + 1).append("</td>")
+                                .append("<td>").append(data[0].toString()).append("</td>")
+                                .append("<td >").append(data[1] == null ? "" : data[1].toString()).append("</td>")
+                                            .append("<td>").append(data[2] == null ? "" : data[2].toString().replace(".", ".<br/>")).append("</td>")
+                                            .append("<td  >").append(data[3] == null ? "" : data[3].toString()).append("</td>");
+
+                }
+            }
+
+            datatable = new StringBuilder("<table  width=\"70%\"  id=\"datatable\"   class=\"table table-bordered\" style=\"text-align: center; \" >")
+                            .append("<thead><tr><th style='text-align:center' >#</th><th style='text-align:center'>Date</th><th style='text-align:center'>Vlan</th><th style='text-align:center;width:30px '>Status</th> <th style='text-align:center'>Count</th> </tr> </thead>")
+                            .append(" <tbody>")
+                            .append(table.toString())
+                            .append(" </tbody>  </table>");
+                    obj.put("datatable", datatable.toString());
+                }
+
+    } catch (Exception ex) {
+        System.out.print(ex);
+        logger.log(Level.SEVERE, ex.getMessage());
+
+    } finally {
+        out.print(obj);
+        out.flush();
+    }
+
+
+%>
+
+
+<%!
+    public String doSomething(String param) {
+        return null;  //
+    }
+%>

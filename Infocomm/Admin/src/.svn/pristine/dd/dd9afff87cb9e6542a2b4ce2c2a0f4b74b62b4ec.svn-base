@@ -1,0 +1,140 @@
+package com.info.cms.helper;
+
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/**
+ *
+ * @author mohd rehan
+ */
+import com.info.cms.presentation.entity.PeReportBean;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JPanel;
+import net.sf.dynamicreports.jasper.builder.JasperReportBuilder;
+import net.sf.dynamicreports.report.builder.DynamicReports;
+import static net.sf.dynamicreports.report.builder.DynamicReports.cmp;
+import static net.sf.dynamicreports.report.builder.DynamicReports.col;
+import static net.sf.dynamicreports.report.builder.DynamicReports.stl;
+import net.sf.dynamicreports.report.builder.datatype.DataTypes;
+import net.sf.dynamicreports.report.builder.style.StyleBuilder;
+import net.sf.dynamicreports.report.constant.HorizontalAlignment;
+import net.sf.dynamicreports.report.constant.SplitType;
+import net.sf.dynamicreports.report.exception.DRException;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+
+public class JasparReport   {
+
+    Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+    static JPanel JPDialogContainer = new JPanel();
+
+//    public JasparReport(JFrame OwnerForm) {
+//        super(OwnerForm, true);
+//
+//        getContentPane().add(JPDialogContainer);
+//        setSize(350, 165);
+//        setResizable(false);
+//        setLocation((screen.width - 350) / 2, ((screen.height - 165) / 2));
+//    }
+
+    public static void  generateReport(String ColumnHeaderName[], String Content[][], int total, String ReportTitle) {
+        //super(OwnerForm, true);
+        //JPDialogContainer.setLayout(null);
+        
+        System.out.println("ColumnHeaderName="+ColumnHeaderName);
+        System.out.println("ReportTitle="+ReportTitle);
+        System.out.println("Total="+total);
+        System.out.println("Content="+Content);
+        try {
+            JasperReportBuilder report = DynamicReports.report();
+            report.title(cmp.text("iCMS Report"));
+            report.pageHeader(cmp.text(ReportTitle));
+            report.pageFooter(cmp.text("2015 © Infocomm Group LLC. All Rights Reserved."));
+            StyleBuilder columnTitleStyle = stl.style().setRightPadding(3).setBorder(stl.pen1Point().setLineWidth(1F)).setLeftPadding(1).setHorizontalAlignment(HorizontalAlignment.CENTER).setBackgroundColor(Color.LIGHT_GRAY);
+            report.setHighlightDetailOddRows(Boolean.TRUE);
+            report.setColumnHeaderSplitType(SplitType.IMMEDIATE);
+            report.setColumnHeaderStyle(columnTitleStyle);
+            report.setColumnStyle(stl.style().setRightPadding(3).setBorder(stl.pen1Point()).setHorizontalAlignment(HorizontalAlignment.CENTER));
+//
+//            StyleBuilder style = stl.style().setRotation(Rotation.LEFT);
+//            TextFieldBuilder<String> textField = cmp.text("Dinesh Glass Industry").setStyle(style);
+//            report.background(textField);
+            //report.
+            //report.s
+            for (int i = 0; i < ColumnHeaderName.length; i++) {
+                report.columns(col.column(ColumnHeaderName[i], "column" + (i+1), DataTypes.stringType()));
+            }
+
+
+            report.setDataSource(createDataSource(ColumnHeaderName, Content, total));
+            report.show(false);
+            //report.
+            
+            //export the report to a pdf file
+            report.toPdf(new FileOutputStream("c:/report.pdf"));
+            report.toXlsx(new FileOutputStream("c:/report1.xlsx"));
+
+            //JPDialogContainer.add(this);
+        } catch (DRException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+//        getContentPane().add(JPDialogContainer);
+//        //setSize(350, 165);
+//        setResizable(false);
+//        setLocation((screen.width ) / 2, ((screen.height ) / 2));
+    }
+     
+ 
+    public static JRBeanCollectionDataSource createDataSource(String ColumnHeaderName[], String Content[][], int total) {
+        List<PeReportBean> dataSource = new ArrayList<PeReportBean>();
+        Class[] paramString = new Class[1];
+        paramString[0] = String.class;
+        System.out.print("total:" + total);
+        try {
+            Class<?> data = Class.forName("com.info.cms.presentation.entity.PeReportBean");
+            for (int j = 0; j < total; j++) {
+                PeReportBean object = new PeReportBean();
+                for (int k = 0; k < ColumnHeaderName.length; k++) {
+                     System.out.print("Content[j][k]:" + Content[j][k]);
+                    data.getMethod("setColumn" + (k+1), paramString).invoke(object, new String(!StringHelper.isNullOrEmptyObject(Content[j][k])?Content[j][k]:""));
+//                data.setName(ColumnHeaderName[k]);
+//                data.setPrice(Content[j][k]);
+
+                }
+                dataSource.add(object);
+                //j=j+ColumnHeaderName.length;
+            }
+            System.out.print("dataSource size:" + dataSource.size());
+        } catch (ClassNotFoundException e) {
+            System.out.print("Class Loaded invoke22:" + e.getMessage());
+
+        } catch (Exception e) {
+            System.out.print("Class Loaded22 invoke:" + e.getLocalizedMessage());
+            e.printStackTrace();
+
+        }
+
+
+        return new JRBeanCollectionDataSource(dataSource);
+    }
+
+    public static void main(String[] args) {
+
+        String ColumnHeaderName[] = {"Rehan"};
+        String Content[][] = new String[1][1];
+        Content[0][0] = "Rehan1";
+       // JasparReport.showDynamicReport(ColumnHeaderName, Content, 1, "Design Report");
+
+    }
+
+     
+}

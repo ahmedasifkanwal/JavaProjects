@@ -1,0 +1,84 @@
+.activeSubMenu ul a, .activeMenu ul a {
+	color: #000000;
+} 
+
+a:hover,.inactiveMenu a:hover,.inactiveSubMenu a:hover,.inactiveLeaf a:hover, .activeMenu a, .activeSubMenu a, .activeLeaf a {
+	color: #F99D1B
+}
+ 
+
+
+#SideNavRoot a.sideNavSuggestionsLink,#SideNavRoot a.sideNavSuggestionsLink:hover{color: #F60400}
+
+
+
+
+
+.sideNavParentLink:active{
+font-size: 8.5pt;
+font-family: Arial, Helvetica, sans-serif;
+color: #c01c16;
+text-decoration:none;
+font-weight: 700;
+}
+.sideNavParentLink:hover{
+font-size: 8.5pt;
+font-family: Arial, Helvetica, sans-serif;
+color: #c01c16;
+text-decoration:underline;
+font-weight: 700;
+}
+
+.sideNavParentLink:link{
+	font-size: 8.5pt;
+	font-family: Arial, Helvetica, sans-serif;
+	color: #2661AD;
+	text-decoration:none;
+	font-weight: 700;
+}
+.sideNavParentLink:visited{
+	font-size: 8.5pt;
+	font-family: Arial, Helvetica, sans-serif;
+	color: #79787D;
+	text-decoration:none;
+	font-weight: 700;
+}
+
+
+.sideNavChildLink:active{
+	font-size: 8.5pt;
+	font-family: Arial, Helvetica, sans-serif;
+	color: #79787D;
+	text-decoration:none;
+	font-weight: 700;
+}
+.sideNavChildLink:hover{
+font-size: 8.5pt;
+font-family: Arial, Helvetica, sans-serif;
+color: #c01c16;
+text-decoration:underline;
+font-weight: 700;
+}
+
+.sideNavChildLink:link{
+	font-size: 8.5pt;
+	font-family: Arial, Helvetica, sans-serif;
+	color: #79787D;
+	text-decoration:none;
+	font-weight: 700;
+}
+.sideNavChildLink:visited{
+	font-size: 8.5pt;
+	font-family: Arial, Helvetica, sans-serif;
+	color: #79787D;
+	text-decoration:none;
+	font-weight: 700;
+}
+.menubg {
+	background-image: url(../images/menubg_big.png);
+	height: 31px;
+	width: 180px;
+	background-repeat: no-repeat;
+}
+.headercenter{
+text-align:right;}

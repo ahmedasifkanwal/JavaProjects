@@ -1,0 +1,14 @@
+# These properties will be used to overrite
+#properties defined in persistence.xml file
+
+
+#Start Production
+javax.persistence.jdbc.url=jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=10.164.147.24)(PORT=1521))(LOAD_BALANCE=yes)(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=WRPTDBSCAN)(FAILOVER_MODE=(TYPE=SELECT)(METHOD=BASIC)(RETRIES=180)(DELAY=5))))
+
+#javax.persistence.jdbc.url=jdbc:oracle:thin:@10.164.147.24:1521:WCMSDBSCAN
+javax.persistence.jdbc.user=ssglog
+javax.persistence.jdbc.password=ssglog
+javax.persistence.jdbc.driver=oracle.jdbc.OracleDriver
+eclipselink.cache.shared.default=false
+#End Production
+

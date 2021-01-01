@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    
+    <package name="default_employee" extends="struts-default"   namespace="/">
+
+        <result-types>
+            <result-type name="tiles"
+                         class="org.apache.struts2.views.tiles.TilesResult" />
+        </result-types>
+        <interceptors>
+            <interceptor name="SessionCheck" class="com.bytes.hrm.interceptor.SessionCheckInterceptor"/>
+            <interceptor-stack name="sessionExpirayStack">
+                <interceptor-ref name="SessionCheck" />
+                <interceptor-ref name="defaultStack" />
+                
+             
+            </interceptor-stack>
+        </interceptors>
+        <default-action-ref name="common.page.not.found" ></default-action-ref>
+        <global-results>
+            <result name="GLOBALERROR" >/layoutcommon/GlobalError1.jsp</result>
+        </global-results>
+        <action name="common.page.not.found" >
+            <interceptor-ref name="sessionExpirayStack">
+            </interceptor-ref>
+            <result name="invalidsession">Login.jsp</result>
+            <result name="success" >/layoutcommon/PageNotFound.jsp</result>
+        </action>
+
+       
+        
+        <!--BEGIN EMPLOYEE-->  
+        
+        <action name="mEmployee"  method="search" class="com.bytes.hrm.action.pim.EmployeeAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success"  >/layoutpim/ManageEmployee.jsp</result>
+            <result name="error">/layoutpim/ManageEmployee.jsp</result>
+        </action>
+        
+        <action name="aEmployee"  method="save" class="com.bytes.hrm.action.pim.EmployeeAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success"  >/layoutpim/AddEmployee.jsp</result>
+            <result name="forward" type="redirectAction" >/mEmployee</result>
+        </action>
+        
+        <action name="oEmployee"   class="com.bytes.hrm.action.pim.EmployeeAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success"  >/layoutpim/AddEmployee.jsp</result>
+            <result name="forward" type="redirectAction" >/mEmployee</result>
+        </action>
+        
+        <action name="mEmployeeView"     class="com.bytes.hrm.action.pim.EmployeeAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success"  >/layoutpim/EmployeeView.jsp</result>
+           
+        </action>
+        
+        
+        
+        
+        <action name="gEmployee"  method="getSelected" class="com.bytes.hrm.action.pim.EmployeeAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success"  >/layoutpim/EditEmployee.jsp</result>
+            <result name="forward" type="redirectAction" >/mEmployee</result>
+        </action>
+        
+       
+        <action name="eEmployee"  method="edit" class="com.bytes.hrm.action.pim.EmployeeAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success"  >/layoutpim/EditEmployee.jsp</result>
+            <result name="forward" type="redirectAction" >/mEmployee</result>
+        </action>
+        
+        <action name="ePersonalDetail"  method="saveEmpPersonalDetail" class="com.bytes.hrm.action.pim.EmployeeAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success"  >/layoutpim/EditEmpPersonalDetails.jsp</result>
+          
+        </action>
+        
+        <action name="gPersonalDetail"  method="getSelected" class="com.bytes.hrm.action.pim.EmployeeAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success"  >/layoutpim/EditEmpPersonalDetails.jsp</result>
+          
+        </action>
+        
+        <action name="gContactDetail"  method="getSelected" class="com.bytes.hrm.action.pim.EmployeeAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success"  >/layoutpim/EditEmpContactDetails.jsp</result>
+            
+        </action>
+        
+        <action name="eContactDetail"  method="saveEmpContactDetail" class="com.bytes.hrm.action.pim.EmployeeAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success"  >/layoutpim/EditEmpContactDetails.jsp</result>
+            
+        </action>
+        
+        <action name="aEmergencyContact"  method="save" class="com.bytes.hrm.action.pim.EmpEmergencyContactsAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success"  >/layoutpim/EditEmpEmergencyContact.jsp</result>
+          
+        </action>
+        
+        <action name="gEmergencyContact"  method="getSelected" class="com.bytes.hrm.action.pim.EmpEmergencyContactsAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success"  >/layoutpim/EditEmpEmergencyContact.jsp</result>
+          
+        </action>
+        
+        <action name="gEmergencyContacts"  method="getEmergencyContacts" class="com.bytes.hrm.action.pim.EmpEmergencyContactsAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success"  >/layoutpim/EditEmpEmergencyContact.jsp</result>
+          
+        </action>
+        
+        
+        
+        
+        <action name="gDependent"  method="getSelected" class="com.bytes.hrm.action.pim.EmpDependentsAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success"  >/layoutpim/EditEmpDependent.jsp</result>
+           
+        </action>
+        
+        <action name="gDependents"  method="getDependents" class="com.bytes.hrm.action.pim.EmpDependentsAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success"  >/layoutpim/EditEmpDependent.jsp</result>
+           
+        </action>
+        
+        <action name="aDependent"  method="save" class="com.bytes.hrm.action.pim.EmpDependentsAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success"  >/layoutpim/EditEmpDependent.jsp</result>
+           
+        </action>
+        
+        
+        <action name="gEmpImmigration"  method="getSelected" class="com.bytes.hrm.action.pim.EmpPassportAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success"  >/layoutpim/EditEmpImmigration.jsp</result>
+         
+        </action>
+        <action name="gEmpImmigrations"  method="getEmpImmigrations" class="com.bytes.hrm.action.pim.EmpPassportAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success"  >/layoutpim/EditEmpImmigration.jsp</result>
+         
+        </action>
+        
+        <action name="aEmpImmigration"  method="save" class="com.bytes.hrm.action.pim.EmpPassportAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success"  >/layoutpim/EditEmpImmigration.jsp</result>
+         
+        </action>
+       
+      
+        <action name="gJob"  method="getSelected" class="com.bytes.hrm.action.pim.EmployeeAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success"  >/layoutpim/EditEmpJob.jsp</result>
+         
+        </action>
+        
+       
+        
+        <action name="eJob"  method="saveEmpJob" class="com.bytes.hrm.action.pim.EmployeeAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success"  >/layoutpim/EditEmpJob.jsp</result>
+         
+        </action>
+        
+        
+        <action name="gSalary"  method="getSelected" class="com.bytes.hrm.action.pim.EmpBasicsalaryAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success"  >/layoutpim/EditEmpSalary.jsp</result>
+          
+        </action>
+        
+        <action name="gSalaries"  method="getSalaries" class="com.bytes.hrm.action.pim.EmpBasicsalaryAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success"  >/layoutpim/EditEmpSalary.jsp</result>
+          
+        </action>
+        
+        
+        <action name="eSalary"  method="edit" class="com.bytes.hrm.action.pim.EmpBasicsalaryAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success"  >/layoutpim/EditEmpSalary.jsp</result>
+          
+        </action>
+        
+        <action name="gReportTo"  method="getSelected" class="com.bytes.hrm.action.pim.EmployeeAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success"  >/layoutpim/EditEmpReportTo.jsp</result>
+           
+        </action>
+        
+        <action name="gReporting"  method="getReporting" class="com.bytes.hrm.action.pim.EmpReporttoAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success"  >/layoutpim/EditEmpReportTo.jsp</result>
+           
+        </action>
+        
+        
+        
+        <action name="aReportTo"  method="save" class="com.bytes.hrm.action.pim.EmpReporttoAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success"  >/layoutpim/EditEmpReportTo.jsp</result>
+           
+        </action>
+             
+        <action name="aEmpMemberDetail"  method="save"  class="com.bytes.hrm.action.pim.EmpMemberDetailAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutpim/EditEmpMemberDetail.jsp</result>
+        </action> 
+
+        <action name="cEmpMemberDetail"  method="getAllEmpMemberDetail" class="com.bytes.hrm.action.pim.EmpMemberDetailAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutpim/EditEmpMemberDetail.jsp</result>
+           
+        </action> 
+
+        <action name="eEmpMemberDetail"    method="edit"  class="com.bytes.hrm.action.pim.EmpMemberDetailAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutpim/EditEmpMemberDetail.jsp</result> 
+        </action>
+
+        <!--END EMPLOYEE--> 
+        
+        <!-- BEGIN CONFIGURATION --> 
+        <action name="aEmpReportingMethod" method="save" class="com.bytes.hrm.action.pim.EmpReportingMethodAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutpim/AddEmpReportingMethod.jsp</result>
+            <result name="forward" type="redirectAction" >/mEmpReportingMethod</result>
+        </action> 
+
+       
+
+        <action name="eEmpReportingMethod"  method="edit"  class="com.bytes.hrm.action.pim.EmpReportingMethodAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutpim/EditEmpReportingMethod.jsp</result> 
+            <result name="forward" type="redirectAction" >/mEmpReportingMethod</result>
+        </action>
+
+        <action name="gEmpReportingMethod"  method="getSelected" class="com.bytes.hrm.action.pim.EmpReportingMethodAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutpim/EditEmpReportingMethod.jsp</result> 
+        </action> 
+
+        <action name="mEmpReportingMethod"  method="search" class="com.bytes.hrm.action.pim.EmpReportingMethodAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success" >/layoutpim/ManageEmpReportingMethod.jsp</result>
+            <result name="error"  >/layoutpim/ManageEmpReportingMethod.jsp</result>
+        </action>
+
+        <action name="oEmpReportingMethod"   class="com.bytes.hrm.action.pim.EmpReportingMethodAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutpim/AddEmpReportingMethod.jsp</result>
+            <result name="forward" type="redirectAction" >/mEmpReportingMethod</result>
+        </action> 
+        
+        <!-- Termination --> 
+        
+        <action name="aEmpTerminationReason" method="save" class="com.bytes.hrm.action.pim.EmpTerminationReasonAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutpim/AddEmpTerminationReason.jsp</result>
+            <result name="forward" type="redirectAction" >/mEmpTerminationReason</result>
+        </action> 
+
+       
+
+        <action name="eEmpTerminationReason"    method="edit"  class="com.bytes.hrm.action.pim.EmpTerminationReasonAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutpim/EditEmpTerminationReason.jsp</result> 
+            <result name="forward" type="redirectAction" >/mEmpTerminationReason</result>
+        </action>
+
+        <action name="gEmpTerminationReason"  method="getSelected" class="com.bytes.hrm.action.pim.EmpTerminationReasonAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutpim/EditEmpTerminationReason.jsp</result> 
+        </action> 
+
+        <action name="mEmpTerminationReason"  method="search" class="com.bytes.hrm.action.pim.EmpTerminationReasonAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success" >/layoutpim/ManageEmpTerminationReason.jsp</result>
+            <result name="error"  >/layoutpim/ManageEmpTerminationReason.jsp</result>
+        </action>
+
+       <action name="oEmpTerminationReason"   class="com.bytes.hrm.action.pim.EmpTerminationReasonAction" >
+           <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+           <result name="invalidsession">/layoutcommon/Login.jsp</result>
+           <result name="success">/layoutpim/AddEmpTerminationReason.jsp</result>
+           <result name="forward" type="redirectAction" >/mEmpTerminationReason</result>
+       </action> 
+       
+<!--        END CONFIGURATION  -->
+                
+    </package>
+</struts>

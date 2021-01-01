@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    
+    <package name="default_job" extends="struts-default"   namespace="/">
+
+        <result-types>
+            <result-type name="tiles"
+                         class="org.apache.struts2.views.tiles.TilesResult" />
+        </result-types>
+        <interceptors>
+            <interceptor name="SessionCheck" class="com.bytes.hrm.interceptor.SessionCheckInterceptor"/>
+            <interceptor-stack name="sessionExpirayStack">
+                <interceptor-ref name="SessionCheck" />
+                <interceptor-ref name="defaultStack" />
+                
+             
+            </interceptor-stack>
+        </interceptors>
+        <default-action-ref name="common.page.not.found" ></default-action-ref>
+        <global-results>
+            <result name="GLOBALERROR" >/layoutcommon/GlobalError1.jsp</result>
+        </global-results>
+        <action name="common.page.not.found" >
+            <interceptor-ref name="sessionExpirayStack">
+            </interceptor-ref>
+            <result name="invalidsession">Login.jsp</result>
+            <result name="success" >/layoutcommon/PageNotFound.jsp</result>
+        </action>
+
+
+        <!--JOB MGT-->  
+        
+        <action name="mJobTitles"  method="search" class="com.bytes.hrm.action.job.JobTitleAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success"  >/layoutjob/ManageJobTitles.jsp</result>
+            <result name="error">/layoutjob/ManageJobTitles.jsp</result>
+        </action>
+       
+   
+
+         <action name="oJobTitles"   class="com.bytes.hrm.action.job.JobTitleAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutjob/AddJobTitles.jsp</result>          
+            <result name="forward" type="redirectAction" >/mJobTitles</result>
+              
+        </action> 
+         
+        <action name="gJobTitles"  method="getSelected" class="com.bytes.hrm.action.job.JobTitleAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutjob/EditJobTitles.jsp</result> 
+         </action>   
+        
+        
+        <action name="aJobtitles"    method="save" class="com.bytes.hrm.action.job.JobTitleAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutjob/AddJobTitles.jsp</result>          
+            <result name="forward" type="redirectAction" >/mJobTitles</result>
+              
+        </action>   
+        
+      
+        <action name="eJobtitles"   method="edit"  class="com.bytes.hrm.action.job.JobTitleAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutjob/EditJobTitles.jsp</result>
+            <result name="forward" type="redirectAction" >/mJobTitles</result>
+        </action>
+        
+          <!--JOB PAY GRADE-->  
+        
+        <action name="mPayGrades"  method="search" class="com.bytes.hrm.action.job.PayGradeAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success"  >/layoutjob/ManagePayGrade.jsp</result>
+            <result name="error">/layoutjob/ManagePayGrade.jsp</result>
+        </action>
+
+        <action name="aPayGrades"    method="save" class="com.bytes.hrm.action.job.PayGradeAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutjob/AddPayGrade.jsp</result>          
+            <result name="forward" type="redirectAction" >/mPayGrades</result>
+              
+        </action>   
+        
+      
+        <action name="ePayGrades"   method="edit"  class="com.bytes.hrm.action.job.PayGradeAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutjob/EditPayGrade.jsp</result>
+            <result name="forward" type="redirectAction" >/mPayGrade</result>
+        </action>
+        
+        
+       
+          <action name="oPayGrades"   class="com.bytes.hrm.action.job.PayGradeAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutjob/AddPayGrade.jsp</result>          
+            <result name="forward" type="redirectAction" >/mJobTitles</result>
+              
+        </action> 
+         
+        <action name="gPayGrades"  method="getSelected" class="com.bytes.hrm.action.job.PayGradeAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutjob/EditPayGrade.jsp</result>          
+           
+              
+        </action>   
+        
+         <!--JOB PAY GRADE-->  
+         
+          <!--JOB PAY GRADE CURRECY-->  
+        
+        <action name="mPayGradesCurrency"  method="search" class="com.bytes.hrm.action.job.PayGradeCurrencyAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success"  >/layoutjob/ManagePayGradeCurrency.jsp</result>
+            <result name="error">/layoutjob/ManagePayGradeCurrency.jsp</result>
+        </action>
+
+        <action name="aPayGradesCurrency"    method="save" class="com.bytes.hrm.action.job.PayGradeCurrencyAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutjob/AddPayGradeCurrency.jsp</result>          
+            <result name="forward" type="redirectAction" >/mPayGrades</result>
+              
+        </action>   
+        
+      
+        <action name="ePayGradesCurrency"   method="edit"  class="com.bytes.hrm.action.job.PayGradeCurrencyAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutjob/EditPayGradeCurrency.jsp</result>
+            <result name="forward" type="redirectAction" >/mPayGrades</result>
+        </action>
+        
+        
+       
+          <action name="oPayGradesCurrency"  method="getSelected" class="com.bytes.hrm.action.job.PayGradeCurrencyAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutjob/AddPayGradeCurrency.jsp</result>          
+            <result name="forward" type="redirectAction" >/mPayGrades</result>
+              
+        </action> 
+         
+        <action name="gPayGradesCurrency"  method="getSelected" class="com.bytes.hrm.action.job.PayGradeCurrencyAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutjob/EditPayGradeCurrency.jsp</result>          
+           
+              
+        </action>   
+        
+         <!--JOB PAY GRADE CURRECY--> 
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+           <!--JOB CATEGORY BEGIN--> 
+         
+        <action name="mJobCategories"  method="search" class="com.bytes.hrm.action.job.JobCategoryAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success"  >/layoutjob/ManageJobCategories.jsp</result>
+            <result name="error">/layoutuser/ManagePayGrade.jsp</result>
+        </action>
+
+        <action name="aJobCategories"    method="save" class="com.bytes.hrm.action.job.JobCategoryAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutjob/AddJobCategories.jsp</result>          
+            <result name="forward" type="redirectAction" >/mJobCategories</result>
+              
+        </action>   
+         <action name="oJobCategories"   class="com.bytes.hrm.action.job.JobCategoryAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutjob/AddJobCategories.jsp</result>          
+            <result name="forward" type="redirectAction" >/mJobCategories</result>
+              
+        </action>   
+        
+      
+        <action name="eJobCategories"   method="edit"  class="com.bytes.hrm.action.job.JobCategoryAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutjob/EditJobCategories.jsp</result>
+            <result name="forward" type="redirectAction" >/mJobCategories</result>
+        </action>
+        
+        <action name="gJobCategories"   method="getSelected"  class="com.bytes.hrm.action.job.JobCategoryAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutjob/EditJobCategories.jsp</result>
+            <result name="forward" type="redirectAction" >/mJobCategories</result>
+        </action>
+         <!--JOB CATEGORY END--> 
+        
+         
+         
+         
+         
+           <!--JOB CATEGORY BEGIN--> 
+         
+        <action name="mEmploymentStatus"  method="search" class="com.bytes.hrm.action.job.EmploymentStatusAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success"  >/layoutjob/ManageEmploymentStatus.jsp</result>
+            <result name="error">/layoutuser/ManageEmploymentStatus.jsp</result>
+        </action>
+
+        <action name="aEmploymentStatus"    method="save" class="com.bytes.hrm.action.job.EmploymentStatusAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutjob/AddEmploymentStatus.jsp</result>          
+            <result name="forward" type="redirectAction" >/mEmploymentStatus</result>
+              
+        </action>   
+         <action name="oEmploymentStatus"   class="com.bytes.hrm.action.job.EmploymentStatusAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutjob/AddEmploymentStatus.jsp</result>          
+            <result name="forward" type="redirectAction" >/mEmploymentStatus</result>
+              
+        </action>   
+        
+      
+        <action name="eEmploymentStatus"   method="edit"  class="com.bytes.hrm.action.job.EmploymentStatusAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutjob/EditEmploymentStatus.jsp</result>
+            <result name="forward" type="redirectAction" >/mEmploymentStatus</result>
+        </action>
+        
+        <action name="gEmploymentStatus"   method="getSelected"  class="com.bytes.hrm.action.job.EmploymentStatusAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutjob/EditEmploymentStatus.jsp</result>
+            <result name="forward" type="redirectAction" >/mEmploymentStatus</result>
+        </action>
+         <!--JOB EMP STATUS END--> 
+         
+         
+          <!-- Start Work Shifts -->
+        
+         <action name="mWorkShifts"  method="search" class="com.bytes.hrm.action.job.WorkShiftAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success"  >/layoutjob/ManageWorkShifts.jsp</result>
+            <result name="error">/layoutuser/ManageWorkShifts.jsp</result>
+        </action>
+
+        <action name="aWorkShifts"    method="save" class="com.bytes.hrm.action.job.WorkShiftAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutjob/AddWorkShifts.jsp</result>          
+            <result name="forward" type="redirectAction" >/mWorkShifts</result>
+              
+        </action>   
+         <action name="oWorkShifts"    class="com.bytes.hrm.action.job.WorkShiftAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutjob/AddWorkShifts.jsp</result>          
+            <result name="forward" type="redirectAction" >/mWorkShifts</result>
+              
+        </action>   
+        
+      
+        <action name="eWorkShifts"   method="edit"  class="com.bytes.hrm.action.job.WorkShiftAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutjob/EditWorkShifts.jsp</result>
+            <result name="forward" type="redirectAction" >/mWorkShifts</result>
+        </action>
+        
+         <action name="gWorkShifts"   method="getSelected"  class="com.bytes.hrm.action.job.WorkShiftAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutjob/EditWorkShifts.jsp</result>
+            <result name="forward" type="redirectAction" >/mWorkShifts</result>
+        </action>
+        
+       <!-- Start Work Shifts -->
+        
+        
+        <!--End-->
+    </package>
+</struts>

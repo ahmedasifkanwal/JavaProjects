@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    
+    <package name="default_leave" extends="struts-default"   namespace="/">
+
+        <result-types>
+            <result-type name="tiles"
+                         class="org.apache.struts2.views.tiles.TilesResult" />
+        </result-types>
+        <interceptors>
+            <interceptor name="SessionCheck" class="com.bytes.hrm.interceptor.SessionCheckInterceptor"/>
+            <interceptor-stack name="sessionExpirayStack">
+                <interceptor-ref name="SessionCheck" />
+                <interceptor-ref name="defaultStack" />
+                
+             
+            </interceptor-stack>
+        </interceptors>
+        <default-action-ref name="common.page.not.found" ></default-action-ref>
+        <global-results>
+            <result name="GLOBALERROR" >/layoutcommon/GlobalError1.jsp</result>
+        </global-results>
+        <action name="common.page.not.found" >
+            <interceptor-ref name="sessionExpirayStack">
+            </interceptor-ref>
+            <result name="invalidsession">Login.jsp</result>
+            <result name="success" >/layoutcommon/PageNotFound.jsp</result>
+        </action>
+
+       
+        
+        <!--BEGIN LEAVE TYPE -->  
+        
+        <action name="aLeaveType"  method="save" class="com.bytes.hrm.action.leave.LeaveTypeAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutleave/AddLeaveType.jsp</result>
+            <result name="forward" type="redirectAction" >/mLeaveType</result>
+        </action> 
+
+        <action name="eLeaveType"    method="edit"  class="com.bytes.hrm.action.leave.LeaveTypeAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutleave/EditLeaveType.jsp</result> 
+            <result name="forward" type="redirectAction" >/mLeaveType</result>
+        </action>
+
+        <action name="gLeaveType"  method="getSelected" class="com.bytes.hrm.action.leave.LeaveTypeAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutleave/EditLeaveType.jsp</result> 
+        </action> 
+
+        <action name="mLeaveType"  method="search" class="com.bytes.hrm.action.leave.LeaveTypeAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success" >/layoutleave/ManageLeaveType.jsp</result>
+            <result name="error"  >/layoutleave/ManageLeaveType.jsp</result>
+        </action>
+
+        <action name="oLeaveType"   class="com.bytes.hrm.action.leave.LeaveTypeAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutleave/AddLeaveType.jsp</result>
+            <result name="forward" type="redirectAction" >/mLeaveType</result>
+        </action> 
+      
+        <!--END LEAVE TYPE -->  
+        
+        <!--BEGIN LEAVE ENTITLEMENT -->  
+        
+        
+        <action name="aLeaveEntitlement"  method="save" class="com.bytes.hrm.action.leave.LeaveEntitlementAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutleave/AddLeaveEntitlement.jsp</result>
+            <result name="forward" type="redirectAction" >/mLeaveEntitlement</result>
+        </action> 
+
+        <action name="eLeaveEntitlement"    method="edit"  class="com.bytes.hrm.action.leave.LeaveEntitlementAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutleave/EditLeaveEntitlement.jsp</result> 
+            <result name="forward" type="redirectAction" >/mLeaveEntitlement</result>
+        </action>
+
+        <action name="gLeaveEntitlement"  method="getSelected" class="com.bytes.hrm.action.leave.LeaveEntitlementAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutleave/EditLeaveEntitlement.jsp</result> 
+        </action> 
+
+        <action name="mLeaveEntitlement"  method="search" class="com.bytes.hrm.action.leave.LeaveEntitlementAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success" >/layoutleave/ManageLeaveEntitlement.jsp</result>
+            <result name="error"  >/layoutleave/ManageLeaveEntitlement.jsp</result>
+        </action>
+
+        <action name="oLeaveEntitlement"   class="com.bytes.hrm.action.leave.LeaveEntitlementAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutleave/AddLeaveEntitlement.jsp</result>
+            <result name="forward" type="redirectAction" >/mLeaveEntitlement</result>
+        </action> 
+
+<!--         END LEAVE ENTITLEMENT   
+        
+         BEGIN HOLIDAY   
+        -->
+        <action name="aHoliday"  method="save" class="com.bytes.hrm.action.leave.HolidayAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutleave/AddHoliday.jsp</result>
+            <result name="forward" type="redirectAction" >/mHoliday</result>
+        </action> 
+
+        <action name="eHoliday"    method="edit"  class="com.bytes.hrm.action.leave.HolidayAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutleave/EditHoliday.jsp</result> 
+            <result name="forward" type="redirectAction" >/mHoliday</result>
+        </action>
+
+        <action name="gHoliday"  method="getSelected" class="com.bytes.hrm.action.leave.HolidayAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutleave/EditHoliday.jsp</result> 
+        </action> 
+
+        <action name="mHoliday"  method="search" class="com.bytes.hrm.action.leave.HolidayAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success" >/layoutleave/ManageHoliday.jsp</result>
+            <result name="error"  >/layoutleave/ManageHoliday.jsp</result>
+        </action>
+
+        <action name="oHoliday"   class="com.bytes.hrm.action.leave.HolidayAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutleave/AddHoliday.jsp</result>
+            <result name="forward" type="redirectAction" >/mHoliday</result>
+        </action> 
+    
+<!--     END HOLIDAY  
+    
+         BEGIN LEAVES 
+        -->
+        <action name="aLeaves" method="save"  class="com.bytes.hrm.action.leave.LeavesAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutleave/AddLeaves.jsp</result>
+            <result name="forward" type="redirectAction" >/mLeaves</result>
+        </action> 
+
+        <action name="cLeaves"  method="getAllLeaves" class="com.bytes.hrm.action.leave.LeavesAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutleave/EditLeaves.jsp</result>
+            <result name="forward" type="redirectAction" >/cLeaves</result>
+        </action> 
+
+        <action name="eLeaves"    method="edit"  class="com.bytes.hrm.action.leave.LeavesAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutleave/EditLeaves.jsp</result> 
+            <result name="forward" type="redirectAction" >/mLeaves</result>
+        </action>
+
+        <action name="gLeaves"  method="getSelected" class="com.bytes.hrm.action.leave.LeavesAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutleave/EditLeaves.jsp</result> 
+        </action> 
+
+        <action name="mLeaves"  method="search" class="com.bytes.hrm.action.leave.LeavesAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutleave/ManageLeaves.jsp</result>
+            <result name="error">/layoutleave/ManageLeaves.jsp</result>
+        </action>
+
+        <action name="oLeaves"   class="com.bytes.hrm.action.leave.LeavesAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutleave/AddLeaves.jsp</result>
+            <result name="forward" type="redirectAction" >/mLeaves</result>
+        </action>
+        
+  <!--     END LEAVES 
+    
+         BEGIN WORKWEEK
+        -->      
+
+        <action name="aWorkWeek" method="save"  class="com.bytes.hrm.action.leave.WorkWeekAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutleave/AddWorkWeek.jsp</result>
+            <result name="forward" type="redirectAction" >mWorkWeek</result>
+        </action> 
+
+        <action name="eWorkWeek"    method="edit"  class="com.bytes.hrm.action.leave.WorkWeekAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutleave/EditWorkWeek.jsp</result> 
+            <result name="forward" type="redirectAction" >mWorkWeek</result>
+        </action>
+
+        <action name="gWorkWeek"  method="getSelected" class="com.bytes.hrm.action.leave.WorkWeekAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutleave/EditWorkWeek.jsp</result> 
+        </action> 
+
+        <action name="mWorkWeek"  method="search" class="com.bytes.hrm.action.leave.WorkWeekAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success" >/layoutleave/ManageWorkWeek.jsp</result>
+            <result name="error"  >/layoutleave/ManageWorkWeek.jsp</result>
+        </action>
+
+        <action name="oWorkWeek"   class="com.bytes.hrm.action.leave.WorkWeekAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutleave/AddWorkWeek.jsp</result>
+            <result name="forward" type="redirectAction" >mWorkWeek</result>
+        </action> 
+
+        <!-- END WORKWEEK-->
+    </package>
+</struts>

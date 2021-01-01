@@ -1,0 +1,148 @@
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+         pageEncoding="ISO-8859-1"  isErrorPage="true"%>
+<%@taglib uri="/struts-tags" prefix="s"%>
+<%@taglib prefix="sx" uri="/struts-dojo-tags"%>
+<sx:head  />
+<script type="text/javascript" src="../js/jquery.timer.js"></script>
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.js"></script>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel">
+                <div class="panel-heading">
+                    <div class="panel-title"> <span class="glyphicon glyphicon-th-large"></span> <%=session.getAttribute("SELACTIONNAME")%> </div>
+
+                </div>
+
+                <s:form action="onlineusers.icms"  theme="simple"   >
+
+
+                    <div class="container"  >
+                        <div class="row" style="margin-top: 5px ">
+                            <span id="xmlerro"></span>
+
+                            <table width="80%"><tr>
+
+                                <td>IMSI</td>
+
+                                <td>  <div class="input-group"> <span class="input-group-addon">
+                                            <i class="fa fa-pencil-square-o"></i> </span>
+                                            <input type="text"  maxlength="20"  id="param1" class="form-control" value="" style="width:320px"/>
+                                    </div></td>
+                                    <td>Omantel=1 , Roaming=0</td>
+                                    <td>  <div class="input-group"> <span class="input-group-addon">
+                                                <i class="fa fa-pencil-square-o"></i> </span>
+                                            <input type="text"  maxlength="20"  id="param2" class="form-control" value="" style="width:320px"/>
+                                        </div></td>
+
+                                </tr>
+                                <tr>
+
+                                <td>Request</td>
+
+                                <td><div class="input-group"> <span class="input-group-addon">
+                                            <i class="fa fa-pencil-square-o"></i> </span>
+                                            <textarea id="xmlRequestBody"  name="Text1" cols="40" rows="15"></textarea>
+                                    </div></td>
+                                    <td>Response</td>
+                                    <td><div class="input-group"> <span class="input-group-addon">
+                                                <i class="fa fa-pencil-square-o"></i> </span>
+                                            <textarea id="xmlResponseBody"  name="Text1" cols="40" rows="15"></textarea>
+                                        </div></td>
+
+                </tr>
+
+
+                                <tr>
+
+                                <td></td>
+
+                                <td></td>
+                                <td></td>
+                                <td><div class="input-group pull-right">
+                                        <button id="refresh"   type="button"  class= "btn btn-info ladda-button" data-style="expand-left" >Get Mobile</button>
+                                    </div></td>
+
+                </tr>
+
+
+                            </table>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+                </div>
+
+
+
+
+
+            </s:form>
+
+
+        </div>
+    </div>
+</div>
+
+
+                    <script type="text/javascript">
+    (function ($) {
+        $(function () {
+            $("#refresh").click(function ()
+            {
+
+               
+                var data =
+                        {
+                            'param1': $("#param1").val(),
+                            'param2': $("#param2").val()
+
+
+                        };
+
+                $.ajax({
+                    type: "POST",
+                    url: "json/JsonIMSI.jsp?data=" + JSON.stringify(data),
+                    data: JSON.stringify(data),
+                    contentType: "application/json",
+                    success: function (data) {
+
+                        var output = $.parseJSON(data);
+                     
+
+                        $("#xmlRequestBody").html(output.xmlRequestBody);
+
+
+                        $("#xmlResponseBody").html(output.xmlResponseBody);
+                  
+                      
+
+                          $("#xmlerro").html(output.xmlerro);
+
+
+
+
+                    }
+                    ,
+                    error: function () {
+
+                        $("#msg_error").html("Ops!! we face technical error.Please try again.");
+
+                    }
+                });
+            }
+            );
+
+
+
+        });
+    })(jQuery);
+
+</script>

@@ -1,0 +1,204 @@
+----------------Deployed in STAG: yes
+ 
+
+ALTER TABLE `job_title` MODIFY COLUMN `job_title` VARCHAR(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
+ ADD UNIQUE `unique_job_title`(`job_title`);
+
+----------------Deployed in STAG: yes
+
+
+
+
+INSERT INTO `sys_action` (`id`,`action_name`,`description`,`tiles`,`action_type`,`created_date`,`created_by`,`module_id`,`display_order`,`authority`,`status`) VALUES 
+ 
+ (158,'mEmpReportingMethod','Reporting Method','link','menu','2014-12-25 08:43:35','Admin',7,51,'Admin','A'),
+ (159,'oEmpReportingMethod','Open Reporting Method','link','link','2014-12-25 08:43:35','Admin',7,51,'Admin','A'),
+ (160,'aEmpReportingMethod','Add Reporting Method','link','link','2014-12-25 08:43:35','Admin',7,51,'Admin','A');
+INSERT INTO `sys_action` (`id`,`action_name`,`description`,`tiles`,`action_type`,`created_date`,`created_by`,`module_id`,`display_order`,`authority`,`status`) VALUES 
+ (161,'eEmpReportingMethod','Edit Reporting Method','link','link','2014-12-25 08:43:35','Admin',7,51,'Admin','A'),
+ (162,'mEmpTerminationReason','Termination Reason','link','menu','2014-12-25 08:43:35','Admin',7,51,'Admin','A'),
+ (163,'oEmpTerminationReason','Open Termination Reason','link','link','2014-12-25 08:43:35','Admin',7,51,'Admin','A'),
+ (164,'aEmpTerminationReason','Add Termination Reason','link','link','2014-12-25 08:43:35','Admin',7,51,'Admin','A'),
+ (165,'eEmpTerminationReason','Edit Termination Reason','link','link','2014-12-25 08:43:35','Admin',7,51,'Admin','A');
+
+
+----------------Deployed in STAG: yes
+
+
+INSERT INTO `sys_user_action` (`id`,`authority`,`module_id`,`action_id`,`created_by`,`created_date`,`update_by`,`update_date`,`status`,`sys_user_name`) VALUES 
+ 
+ (158,'admin',7,158,'admin','2017-12-25 08:56:03',NULL,NULL,'A',NULL),
+ (159,'admin',7,159,'admin','2017-12-25 08:56:03',NULL,NULL,'A',NULL),
+ (160,'admin',7,160,'admin','2017-12-25 08:56:03',NULL,NULL,'A',NULL),
+ (161,'admin',7,161,'admin','2017-12-25 08:56:03',NULL,NULL,'A',NULL),
+ (162,'admin',7,162,'admin','2017-12-25 08:56:03',NULL,NULL,'A',NULL),
+ (163,'admin',7,163,'admin','2017-12-25 08:56:03',NULL,NULL,'A',NULL),
+ (164,'admin',7,164,'admin','2017-12-25 08:56:03',NULL,NULL,'A',NULL),
+ (165,'admin',7,165,'admin','2017-12-25 08:56:03',NULL,NULL,'A',NULL);
+
+
+
+
+-----   Deployed in STAG -Yes
+
+SELECT * FROM byteshrm2.sys_modules s;
+
+User Management chnaged to System
+
+Changed  Sys_Action , sys_user_action Table , copy full
+
+
+
+
+INSERT INTO `sys_action` (`id`,`action_name`,`description`,`tiles`,`action_type`,`created_date`,`created_by`,`module_id`,`display_order`,`authority`,`status`) VALUES 
+ (166,'aJobVacancy','Add Job Vacancy','link','link','2014-12-25 08:43:35','Admin',9,52,'Admin','A'),
+ 
+ (167,'eJobVacancy','Edit Job Vacancy','link','link','2014-12-25 08:43:35','Admin',9,52,'Admin','A'),
+ (168,'gJobVacancy','Get Job Vacancy','link','link','2014-12-25 08:43:35','Admin',9,52,'Admin','A'),
+(169,'mJobVacancy','Manage Job Vacancy','link','menu','2014-12-25 08:43:35','Admin',9,52,'Admin','A'),
+ (170,'oJobVacancy','Open Job Vacancy','link','link','2014-12-25 08:43:35','Admin',9,52,'Admin','A');
+
+
+INSERT INTO `sys_user_action` (`id`,`authority`,`module_id`,`action_id`,`created_by`,`created_date`,`update_by`,`update_date`,`status`,`sys_user_name`) VALUES 
+ 
+ (166,'admin',9,166,'admin','2014-12-25 08:43:35',NULL,NULL,'A',NULL),
+ (167,'admin',9,167,'admin','2014-12-25 08:43:35',NULL,NULL,'A',NULL),
+ (168,'admin',9,168,'admin','2014-12-25 08:43:35',NULL,NULL,'A',NULL),
+ (169,'admin',9,169,'admin','2014-12-25 08:43:35',NULL,NULL,'A',NULL),
+(170,'admin',9,170,'admin','2014-12-25 08:43:35',NULL,NULL,'A',NULL);
+ 
+-----   Deployed in STAG: YES
+
+
+9/8/2018
+
+ALTER TABLE `test1`.`sys_modules` MODIFY COLUMN `module_type` VARCHAR(30) NOT NULL DEFAULT '0';
+
+ALTER TABLE `test1`.`sys_modules` CHANGE COLUMN `module_type` `application` VARCHAR(30) NOT NULL DEFAULT '0',
+ MODIFY COLUMN `status` VARCHAR(5) BINARY CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL DEFAULT 'A';
+
+
+
+Deployed in STAG: YES
+
+
+=============
+ALTER TABLE `sys_authorities` CHANGE COLUMN `title` `parent_authority` VARCHAR(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL DEFAULT '';
+
+
+Deployed in STAG: YES
+
+
+==========
+
+INSERT INTO `sys_action` (`id`,`action_name`,`description`,`tiles`,`action_type`,`created_date`,`created_by`,`module_id`,`display_order`,`authority`,`status`) VALUES 
+ (171,'aWorkWeek','Add WorkWeek','link','link','2014-12-25 08:43:35','Admin',10,52,'Admin','A'),
+ 
+ (172,'eWorkWeek','Edit WorkWeek','link','link','2014-12-25 08:43:35','Admin',10,52,'Admin','A'),
+ (173,'gWorkWeek','Get WorkWeek','link','link','2014-12-25 08:43:35','Admin',10,52,'Admin','A'),
+(174,'mWorkWeek','Manage WorkWeek','link','menu','2014-12-25 08:43:35','Admin',10,52,'Admin','A'),
+ (175,'oWorkWeek','Open WorkWeek','link','link','2014-12-25 08:43:35','Admin',10,52,'Admin','A');
+
+
+INSERT INTO `sys_user_action` (`id`,`authority`,`module_id`,`action_id`,`created_by`,`created_date`,`update_by`,`update_date`,`status`,`sys_user_name`) VALUES 
+ 
+ (171,'admin',10,171,'admin','2014-12-25 08:43:35',NULL,NULL,'A',NULL),
+ (172,'admin',10,172,'admin','2014-12-25 08:43:35',NULL,NULL,'A',NULL),
+ (173,'admin',10,173,'admin','2014-12-25 08:43:35',NULL,NULL,'A',NULL),
+ (174,'admin',10,174,'admin','2014-12-25 08:43:35',NULL,NULL,'A',NULL),
+(175,'admin',10,175,'admin','2014-12-25 08:43:35',NULL,NULL,'A',NULL);
+
+
+================Stahing Yes
+
+
+ALTER TABLE `test1`.`employee` ADD UNIQUE `employee_id_uk`(`employee_id`);
+
+ALTER TABLE `test1`.`employee` MODIFY COLUMN `employee_id` VARCHAR(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
+ DROP INDEX `employee_id_uk`,
+ ADD UNIQUE `employee_id_uk`(`employee_id`);
+
+
+
+Staging YES
+
+
+INSERT INTO `sys_action` (`id`,`action_name`,`description`,`tiles`,`action_type`,`created_date`,`created_by`,`module_id`,`display_order`,`authority`,`status`) VALUES 
+ (176,'aAstVendor','Add Vendor','link','link','2014-12-25 08:43:35','Admin',13,1,'Admin','A'),
+ 
+ (177,'eAstVendor','Edit Vendor','link','link','2014-12-25 08:43:35','Admin',13,2,'Admin','A'),
+ (178,'gAstVendor','Get Vendor','link','link','2014-12-25 08:43:35','Admin',13,3,'Admin','A'),
+ (179,'mAstVendor','Manage Vendor','link','menu','2014-12-25 08:43:35','Admin',13,4,'Admin','A'),
+ (180,'oAstVendor','Open Vendor','link','link','2014-12-25 08:43:35','Admin',13,5,'Admin','A');
+
+
+INSERT INTO `sys_user_action` (`id`,`authority`,`module_id`,`action_id`,`created_by`,`created_date`,`update_by`,`update_date`,`status`,`sys_user_name`) VALUES 
+ 
+ (176,'admin',13,176,'admin','2014-12-25 08:43:35',NULL,NULL,'A',NULL),
+ (177,'admin',13,177,'admin','2014-12-25 08:43:35',NULL,NULL,'A',NULL),
+ (178,'admin',13,178,'admin','2014-12-25 08:43:35',NULL,NULL,'A',NULL),
+ (179,'admin',13,179,'admin','2014-12-25 08:43:35',NULL,NULL,'A',NULL),
+ (180,'admin',13,180,'admin','2014-12-25 08:43:35',NULL,NULL,'A',NULL);
+
+
+================Stahing Yes
+
+INSERT INTO `sys_action` (`id`,`action_name`,`description`,`tiles`,`action_type`,`created_date`,`created_by`,`module_id`,`display_order`,`authority`,`status`) VALUES 
+ (181,'aAstCategory','Add Category','link','link','2014-12-25 08:43:35','Admin',13,6,'Admin','A'),
+ 
+ (182,'eAstCategory','Edit Category','link','link','2014-12-25 08:43:35','Admin',13,7,'Admin','A'),
+ (183,'gAstCategory','Get Category','link','link','2014-12-25 08:43:35','Admin',13,8,'Admin','A'),
+ (184,'mAstCategory','Manage Category','link','menu','2014-12-25 08:43:35','Admin',13,9,'Admin','A'),
+ (185,'oAstCategory','Open Category','link','link','2014-12-25 08:43:35','Admin',13,10,'Admin','A');
+
+
+INSERT INTO `sys_user_action` (`id`,`authority`,`module_id`,`action_id`,`created_by`,`created_date`,`update_by`,`update_date`,`status`,`sys_user_name`) VALUES 
+ 
+ (181,'admin',13,181,'admin','2014-12-25 08:43:35',NULL,NULL,'A',NULL),
+ (182,'admin',13,182,'admin','2014-12-25 08:43:35',NULL,NULL,'A',NULL),
+ (183,'admin',13,183,'admin','2014-12-25 08:43:35',NULL,NULL,'A',NULL),
+ (184,'admin',13,184,'admin','2014-12-25 08:43:35',NULL,NULL,'A',NULL),
+ (185,'admin',13,185,'admin','2014-12-25 08:43:35',NULL,NULL,'A',NULL);
+
+================Stahing Yes
+
+
+INSERT INTO `sys_action` (`id`,`action_name`,`description`,`tiles`,`action_type`,`created_date`,`created_by`,`module_id`,`display_order`,`authority`,`status`) VALUES 
+ (186,'aAstBrand','Add Brand','link','link','2014-12-25 08:43:35','Admin',13,11,'Admin','A'),
+ 
+ (187,'eAstBrand','Edit Brand','link','link','2014-12-25 08:43:35','Admin',13,12,'Admin','A'),
+ (188,'gAstBrand','Get Brand','link','link','2014-12-25 08:43:35','Admin',13,13,'Admin','A'),
+ (189,'mAstBrand','Manage Brand','link','menu','2014-12-25 08:43:35','Admin',13,14,'Admin','A'),
+ (190,'oAstBrand','Open Brand','link','link','2014-12-25 08:43:35','Admin',13,15,'Admin','A');
+
+
+INSERT INTO `sys_user_action` (`id`,`authority`,`module_id`,`action_id`,`created_by`,`created_date`,`update_by`,`update_date`,`status`,`sys_user_name`) VALUES 
+ 
+ (186,'admin',13,186,'admin','2014-12-25 08:43:35',NULL,NULL,'A',NULL),
+ (187,'admin',13,187,'admin','2014-12-25 08:43:35',NULL,NULL,'A',NULL),
+ (188,'admin',13,188,'admin','2014-12-25 08:43:35',NULL,NULL,'A',NULL),
+ (189,'admin',13,189,'admin','2014-12-25 08:43:35',NULL,NULL,'A',NULL),
+ (190,'admin',13,190,'admin','2014-12-25 08:43:35',NULL,NULL,'A',NULL);
+
+
+================Stahing Yes
+
+
+INSERT INTO `sys_action` (`id`,`action_name`,`description`,`tiles`,`action_type`,`created_date`,`created_by`,`module_id`,`display_order`,`authority`,`status`) VALUES 
+ (191,'aAstAsset','Add Asset','link','link','2014-12-25 08:43:35','Admin',13,16,'Admin','A'),
+ 
+ (192,'eAstAsset','Edit Asset','link','link','2014-12-25 08:43:35','Admin',13,17,'Admin','A'),
+ (193,'gAstAsset','Get Asset','link','link','2014-12-25 08:43:35','Admin',13,18,'Admin','A'),
+ (194,'mAstAsset','Manage Asset','link','menu','2014-12-25 08:43:35','Admin',13,19,'Admin','A'),
+ (195,'oAstAsset','Open Asset','link','link','2014-12-25 08:43:35','Admin',13,20,'Admin','A');
+
+
+INSERT INTO `sys_user_action` (`id`,`authority`,`module_id`,`action_id`,`created_by`,`created_date`,`update_by`,`update_date`,`status`,`sys_user_name`) VALUES 
+ 
+ (191,'admin',13,191,'admin','2014-12-25 08:43:35',NULL,NULL,'A',NULL),
+ (192,'admin',13,192,'admin','2014-12-25 08:43:35',NULL,NULL,'A',NULL),
+ (193,'admin',13,193,'admin','2014-12-25 08:43:35',NULL,NULL,'A',NULL),
+ (194,'admin',13,194,'admin','2014-12-25 08:43:35',NULL,NULL,'A',NULL),
+ (195,'admin',13,195,'admin','2014-12-25 08:43:35',NULL,NULL,'A',NULL);
+
+ALTER TABLE `byteshrm2`.`sys_user` CHANGE COLUMN `advertiser_id` `emp_number` INTEGER UNSIGNED NOT NULL DEFAULT 0;

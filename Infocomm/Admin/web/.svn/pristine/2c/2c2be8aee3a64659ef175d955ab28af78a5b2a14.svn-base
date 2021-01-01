@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+    <!-- BASE LAYOUT  BEGIN -->
+    <definition name="baseLayout" template="/BaseLayout.jsp">
+        <put-attribute name="title" value="" />
+        <put-attribute name="header" value="/Header.jsp" />
+        <put-attribute name="menu" value="/Menu.jsp" />
+        <put-attribute name="body" value="" />
+        <put-attribute name="footer" value="/Footer.jsp" />
+    </definition>
+    <definition name="baseLayoutView" template="/BaseLayoutView.jsp">
+        <put-attribute name="title" value="" />
+        <put-attribute name="header" value="" />
+        <put-attribute name="menu" value="" />
+        <put-attribute name="body" value="" />
+        <put-attribute name="footer" value="/Footer.jsp" />
+    </definition>
+    <!-- BASE LAYOUT  END -->
+         
+    <!-- COMMON TILES BEGIN -->
+    <definition name="/dashboard.tiles" extends="baseLayout">
+        <put-attribute name="title" value="Welcome" />
+        <put-attribute name="body" value="/layoutuser/Welcome.jsp" />
+    </definition>
+    <definition name="/dashboardbusiness.tiles" extends="baseLayout">
+        <put-attribute name="title" value="Welcome" />
+        <put-attribute name="body" value="/layoutbusiness/Welcome.jsp" />
+    </definition>
+    <definition name="/createsysuser.tiles" extends="baseLayout">
+        <put-attribute name="title" value="Create Users" />
+        <put-attribute name="body" value="/layoutuser/CreateUserAccount.jsp" />
+    </definition>
+    <definition name="/searchusers.tiles" extends="baseLayout">
+        <put-attribute name="title" value="Search Users" />
+        <put-attribute name="body" value="/layoutuser/SearchUserAccount.jsp" />
+    </definition>
+    <definition name="/assignpermission.tiles" extends="baseLayout">
+        <put-attribute name="title" value="Assign Permission" />
+        <put-attribute name="body" value="/layoutuser/AssignUserPermission.jsp" />
+    </definition>
+    <definition name="/updatesysuser.tiles" extends="baseLayout">
+        <put-attribute name="title" value="Edit User" />
+        <put-attribute name="body" value="/layoutuser/EditUserAccount.jsp" />
+    </definition>
+    <definition name="/changeuserpassword.tiles" extends="baseLayout">
+        <put-attribute name="title" value="Change Password" />
+        <put-attribute name="body" value="/layoutuser/ChangePassword.jsp" />
+    </definition>
+    <definition name="/resetpassword.tiles" extends="baseLayout">
+        <put-attribute name="title" value="Reset Password" />
+        <put-attribute name="body" value="/layoutuser/ResetPassword.jsp" />
+    </definition>
+    <definition name="/auditlog.tiles" extends="baseLayout">
+        <put-attribute name="title" value="Audit Logs" />
+        <put-attribute name="body" value="/layoutuser/AuditLog.jsp" />
+    </definition>
+    <definition name="/syserror.tiles" extends="baseLayout">
+        <put-attribute name="title" value="System Error Logs" />
+        <put-attribute name="body" value="/layoutcommon/SystemError.jsp" />
+    </definition>
+    <definition name="/addrole.tiles" extends="baseLayout">
+        <put-attribute name="title" value="Add Role" />
+        <put-attribute name="body" value="/layoutuser/AddRole.jsp" />
+    </definition>
+    <definition name="/editrole.tiles" extends="baseLayout">
+        <put-attribute name="title" value="Edit Role" />
+        <put-attribute name="body" value="/layoutuser/EditRole.jsp" />
+    </definition>
+
+    <definition name="/searchrole.tiles" extends="baseLayout">
+        <put-attribute name="title" value="Search Role" />
+        <put-attribute name="body" value="/layoutuser/SearchRole.jsp" />
+    </definition>   
+    
+  
+   
+    <definition name="/loginlogouthistory.tiles" extends="baseLayout">
+        <put-attribute name="title" value="Login Logout" />
+        <put-attribute name="body" value="/layoutuser/LoginLogoutHistory.jsp" />
+    </definition>
+    <!--[End Campaign]-->
+    <!--Begin Add Vlan-->
+    <definition name="/addvlan.tiles" extends="baseLayout">
+        <put-attribute name="title" value="Add Vlan" />
+        <put-attribute name="body" value="/layoutcampaign/AddVlan.jsp" />
+    </definition>
+    
+    <definition name="/searchvlan.tiles" extends="baseLayout">
+        <put-attribute name="title" value="Search Vlan" />
+        <put-attribute name="body" value="/layoutcampaign/SearchVlan.jsp" />
+    </definition>  
+    
+    <definition name="/editvlan.tiles" extends="baseLayout">
+        <put-attribute name="title" value="Edit Vlan" />
+        <put-attribute name="body" value="/layoutcampaign/EditVlan.jsp" />
+    </definition>
+    <!--End Vlan-->
+    <definition name="/loginstatictics.tiles" extends="baseLayout">
+        <put-attribute name="title" value="User Activation" />
+        <put-attribute name="body" value="/layoutanalytics/LoginStatictics.jsp" />
+    </definition>
+    <definition name="/datautilization.tiles" extends="baseLayout">
+        <put-attribute name="title" value="Data Utilization" />
+        <put-attribute name="body" value="/layoutanalytics/DataUtilization.jsp" />
+    </definition>
+    <definition name="/datautilizationbyuser.tiles" extends="baseLayout">
+        <put-attribute name="title" value="Data Utilization" />
+        <put-attribute name="body" value="/layoutanalytics/DataUtilizationByUser.jsp" />
+    </definition>
+    <definition name="/outgoingsms.tiles" extends="baseLayout">
+        <put-attribute name="title" value="Outgoing SMS" />
+        <put-attribute name="body" value="/layoutsms/OutgoingSMS.jsp" />
+    </definition>
+    <definition name="/internationalsms.tiles" extends="baseLayout">
+        <put-attribute name="title" value="International SMS" />
+        <put-attribute name="body" value="/layoutsms/InternationalSMS.jsp" />
+    </definition>
+    <definition name="/smsstatus.tiles" extends="baseLayout">
+        <put-attribute name="title" value="Fault Analysis" />
+        <put-attribute name="body" value="/layoutsms/SMSFaultAnalysis.jsp" />
+    </definition>
+    <definition name="/onlineusers.tiles" extends="baseLayout">
+        <put-attribute name="title" value="Online Users" />
+        <put-attribute name="body" value="/layoutcommon/OnlineUsers.jsp" />
+    </definition>
+    <definition name="/connectedvslogin.tiles" extends="baseLayout">
+        <put-attribute name="title" value="Connected Vs Login" />
+        <put-attribute name="body" value="/layoutanalytics/ConnectedVsLogin.jsp" />
+    </definition>
+    <definition name="/SearchVlan.tiles" extends="baseLayout">
+        <put-attribute name="title" value="Location" />
+        <put-attribute name="body" value="/layoutlocation/SearchVlan.jsp" />
+    </definition>
+    <definition name="/SearchGroup.tiles" extends="baseLayout">
+        <put-attribute name="title" value="Location" />
+        <put-attribute name="body" value="/layoutlocation/SearchVlanGroup.jsp" />
+    </definition>
+    <definition name="/searchaccount.tiles" extends="baseLayout">
+        <put-attribute name="title" value="Location" />
+        <put-attribute name="body" value="/layoutwifiaccount/SearchAccount.jsp" />
+    </definition>
+    <definition name="/singleuser.tiles" extends="baseLayout">
+        <put-attribute name="title" value="Location" />
+        <put-attribute name="body" value="/layoutwifiaccount/SingleUser.jsp" />
+    </definition>
+    <definition name="/wifiuser.tiles" extends="baseLayout">
+        <put-attribute name="title" value="Location" />
+        <put-attribute name="body" value="/layoutwifiaccount/WifiUser.jsp" />
+    </definition>
+    <definition name="/searchcustomer.tiles" extends="baseLayout">
+        <put-attribute name="title" value="Search Customer" />
+        <put-attribute name="body" value="/layoutwifiaccount/Searchcustomer.jsp" />
+    </definition>
+    <definition name="/complaint.tiles" extends="baseLayout">
+        <put-attribute name="title" value="Search Complaint" />
+        <put-attribute name="body" value="/layoutcommon/SearchComplaint.jsp" />
+    </definition>
+    
+    <definition name="/mobileapi.tiles" extends="baseLayout">
+        <put-attribute name="title" value="Mobile API" />
+        <put-attribute name="body" value="/layoutcommon/MobileApi.jsp" />
+    </definition>
+
+
+    <definition name="/searchaccountimsi.tiles" extends="baseLayout">
+        <put-attribute name="title" value="User" />
+        <put-attribute name="body" value="/layoutlawful/SearchAccountIMSI.jsp" />
+    </definition>
+    <definition name="/webaccresslog.tiles" extends="baseLayout">
+        <put-attribute name="title" value="Li Log" />
+        <put-attribute name="body" value="/layoutlawful/WebAccressLog.jsp" />
+    </definition>
+             <!--CR#: WIFi001-->
+      <definition name="/kioskwifiaccount.tiles" extends="baseLayout">
+        <put-attribute name="title" value="Outgoing SMS" />
+        <put-attribute name="body" value="/layoutwifiaccount/KioskWifiAccount.jsp" />
+    </definition>
+    
+</tiles-definitions>

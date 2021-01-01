@@ -1,0 +1,223 @@
+/*-----------------------------------------------------------------------------
+
+REVOLUTION RESPONSIVE BASIC STYLES OF HTML DOCUMENT
+
+Screen Stylesheet
+
+version:   	1.0
+date:      	26/06/12
+author:		themepunch
+email:     	support@themepunch.com
+website:   	http://www.themepunch.com
+-----------------------------------------------------------------------------*/
+
+
+/**********************
+	-	RESET	-
+************************/
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
+	font-family: Arial, Helvetica, sans-serif;	/* margin: 0; */
+	/* padding: 0; */
+	/* border: 0; */
+	/* outline: 0; */
+	/* font-size: 100%; */
+	/* vertical-align: baseline; */
+	/* background: transparent; */
+}
+/***********************
+	-	BASICS 	-
+***********************/
+html {
+	overflow-x: hidden;
+	padding: 0 !important;
+	background-image: url(../images/tiles/bgtile.jpg);
+	margin: 0px !important;
+}
+/*********************************************************************************************
+		-	SET THE SCREEN SIZES FOR THE BANNER IF YOU WISH TO MAKE THE BANNER RESOPONSIVE 	-
+  **********************************************************************************************/
+
+  /*	-	THE BANNER CONTAINER (Padding, Shadow, Border etc. )	-	*/
+
+.bannercontainer {
+	padding: 0px;
+	background-color: #fff;
+	width: 960px;
+	position: relative;
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+}
+.banner {
+	width: 960px;
+	height: 500px;
+	position: relative;
+	overflow: hidden;
+}
+
+
+  /*	THE MEDIA CHOOSER TO SET DIFFERENT SIZES OF THE CONTAINER DEPENDING ON THE SCREEN SIZE    */
+     @media only screen and (min-width: 1000px) and (max-width: 1600px) {
+ 
+#loginmobile{
+	margin-top:-370px;
+}
+#loginmobile_right {
+	float: right;
+	margin-right: -40px;
+}
+span .customSelectInner {
+	/* width: 300px; */
+}
+
+ }
+
+   @media only screen and (min-width: 768px) and (max-width: 959px) {
+.banner, .bannercontainer {
+	width: 760px;
+	height: 395px;
+}
+#loginmobile{
+	margin-top:-370px;
+}
+ }
+ @media only screen and (min-width: 480px) and (max-width: 767px) {
+.banner, .bannercontainer {
+	width: 480px;
+	height: 250px;
+}
+}
+ @media only screen and (min-width: 0px) and (max-width: 479px) {
+.banner, .bannercontainer {
+	width: 320px;
+	height: 166px;
+}
+#dajy {
+	display: none;
+}
+.mt-200 {
+	display: block;
+	margin-top: -370px;
+}
+#loginmobile{
+	margin-top: 10px;
+	margin-left: -20px;
+}
+.navbar-brand img {
+	 
+	min-height: 10px;
+}
+.fullscreenbanner {
+	display: none;
+}
+
+}
+.login_time {
+	font-family: Arial, Helvetica, sans-serif, Tahoma;
+	text-shadow: 0 3px 1px #111111, 0 3px 2px #4e4e4e;
+	border-radius: 4px 4px 4px 4px;
+	background-color: -o-linear-gradient;
+	background: #0063a5;
+	background: -moz-linear-gradient(top, #0063a5, #0a4770);
+	background: -webkit-gradient(linear, 0 0, 0 100%, from(#0063a5), to(#0a4770));
+	background: -webkit-linear-gradient(top, #0063a5, #0a4770);
+ 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0063a5', endColorstr='#0a4770', GradientType=0);
+	box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset, 0 1px 3px rgba(0, 0, 0, 0.3);
+	height: 80px;
+	width: 70px;
+	text-align: center;
+	background-repeat: repeat-x;
+	border-top-width: 2px;
+	border-right-width: 2px;
+	border-bottom-width: 2px;
+	border-left-width: 2px;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	border-top-color: #3f3f3f;
+	border-right-color: #414141;
+	border-bottom-color: #5b5b5b;
+	border-left-color: #a1a1a1;
+	font-size: 28px;
+	font-weight: bold;
+	color: #FFFFFF;
+}
+.timer_dot {
+	background-image: url(../images/timer-dot.png);
+	height: 31px;
+	width: 16px;
+	display: inline-table;
+	margin-left: 5px;
+}
+
+.general-button {
+	border-radius: 4px 4px 4px 4px;
+	font-size: 13px;
+	transition: all 0.7s ease-out 0s;
+	text-decoration: none;
+	font-weight: bold;
+	padding-top: 7px;
+	padding-right: 25px;
+	padding-bottom: 7px;
+	padding-left: 25px;
+	cursor: pointer;
+	font-family: Arial, Helvetica, sans-serif, Tahoma;
+	
+	border: 1px solid #0063A5;
+	box-shadow: 0 1px 0 rgba(255, 255, 255, 0.3) inset, 0 1px 3px rgba(0, 0, 0, 0.3);
+	background-attachment: scroll;
+	background-color: #0063a5;
+	background-image: none;
+	background-repeat: repeat;
+	background-position: 0 0;
+	color: #FFFFFF;
+	background: -moz-linear-gradient(top, #0063a5, #024069);
+	background: -webkit-gradient(linear, 0 0, 0 100%, from(#0063a5), to(#024069));
+	background: -webkit-linear-gradient(top, #0063a5, #024069);
+	background: -o-linear-gradient(top, #0063a5, #024069);
+	background: linear-gradient(to bottom, #0063a5, #024069);
+ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0063a5', endColorstr='#024069', GradientType=0);
+}
+div.alert-success {
+	color: #727226;
+	border: 1px solid #6aa05a;
+	font-size: 18px;
+	background-color: #d3e6c9;
+	background-repeat: no-repeat;
+	background-position: center 10px;
+	text-align: center;
+	margin-top: 3px;
+	margin-right: 0px;
+	margin-bottom: 10px;
+	margin-left: 0px;
+	padding-top: 6%;
+	padding-right: 3%;
+	padding-bottom: 6%;
+	padding-left: 3%;
+	font-weight: bold;
+	
+}
+div.alert-error {
+	color: #774444;
+	border: 1px solid #cc7373;
+	font-size: 18px;
+	background-color: #ffcccc;
+	background-repeat: no-repeat;
+	background-position: center 10px;
+	text-align: center;
+	margin-top: 3px;
+	margin-right: 0px;
+	margin-bottom: 10px;
+	margin-left: 0px;
+	padding-top: 6%;
+	padding-right: 3%;
+	padding-bottom: 6%;
+	padding-left: 3%;
+	font-weight: bold;
+	
+}
+.error_code {
+	color: #FF0000;
+	font-size: 12px;
+}

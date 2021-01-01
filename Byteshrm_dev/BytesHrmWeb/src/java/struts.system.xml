@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    
+    <package name="defaultuser" extends="struts-default"   namespace="/">
+
+        <result-types>
+            <result-type name="tiles"
+                         class="org.apache.struts2.views.tiles.TilesResult" />
+        </result-types>
+        <interceptors>
+            <interceptor name="SessionCheck" class="com.bytes.hrm.interceptor.SessionCheckInterceptor"/>
+            <interceptor-stack name="sessionExpirayStack">
+                <interceptor-ref name="SessionCheck" />
+                <interceptor-ref name="defaultStack" />
+                
+             
+            </interceptor-stack>
+        </interceptors>
+        <default-action-ref name="common.page.not.found" ></default-action-ref>
+        <global-results>
+            <result name=" GLOBAL_ERROR" >/layoutcommon/GlobalError1.jsp</result>
+        </global-results>
+        <action name="common.page.not.found" >
+            <interceptor-ref name="sessionExpirayStack">
+            </interceptor-ref>
+            <result name="invalidsession">Login.jsp</result>
+            <result name="success" >/layoutcommon/PageNotFound.jsp</result>
+        </action>
+
+
+        <action name="login"  method="login" class="com.bytes.hrm.action.system.LoginAction" >
+            <result name="success"  >/layoutcommon/Login.jsp</result>
+           
+        </action>
+        
+        <action name="logout"  method="logout" class="com.bytes.hrm.action.system.LoginAction" >
+            <result name="success"  >/layoutcommon/Login.jsp</result>
+           
+        </action>
+        
+        <action name="loginsuccess" method="execute" class="com.bytes.hrm.action.system.LoginAction" >
+            <result name="success" type="redirectAction" >dashboard</result>
+            <result name="successess"  type="redirectAction" >dashboardess</result>
+            <result name="error" type="redirectAction">login</result>
+        </action>
+
+       <action name="dashboardess" method="search" class="com.bytes.hrm.action.common.DashboardAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success"  >/layoutdashboard/dashboardess.jsp</result>            
+            <result name="error">/layoutcommon/Login.jsp</result>
+        </action>
+
+        <action name="dashboard" method="search" class="com.bytes.hrm.action.common.DashboardAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success"  >/layoutdashboard/dashboard.jsp</result>
+            
+            <result name="error">/layoutcommon/Login.jsp</result>
+        </action>  
+        
+        <action name="setapplication" method="setApplication" class="com.bytes.hrm.action.system.SysUsersAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="Amanat"  >/layoutdashboard/dashboardAmanat.jsp</result>
+            <result name="Harmony"  >/layoutdashboard/dashboard.jsp</result>
+              
+            <result name="Payroll"  >/layoutdashboard/dashboardPayroll.jsp</result>
+             
+              
+            <result name="error">/layoutcommon/Login.jsp</result>
+        </action>          
+        
+        
+        <!--START:ROLE MGT-->  
+        
+
+        <action name="mrole"  method="search" class="com.bytes.hrm.action.system.SysAuthorityAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success"  >/layoutuser/ManageRole.jsp</result>
+            <result name="error">/layoutuser/ManageRole.jsp</result>
+        </action>
+
+        <action name="arole"    method="save" class="com.bytes.hrm.action.system.SysAuthorityAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutuser/AddRole.jsp</result>          
+            <result name="forward" type="redirectAction" >/mrole</result>
+              
+        </action>   
+        
+        <action name="orole"   class="com.bytes.hrm.action.system.SysAuthorityAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutuser/AddRole.jsp</result>          
+            <result name="forward" type="redirectAction" >/mrole</result>
+              
+        </action>   
+        
+        <action name="grole"   method="getSelected"  class="com.bytes.hrm.action.system.SysAuthorityAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutuser/EditRole.jsp</result>
+            <result name="forward" type="redirectAction" >/mrole</result>
+        </action>
+          
+        <action name="erole"   method="edit"  class="com.bytes.hrm.action.system.SysAuthorityAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutuser/EditRole.jsp</result>
+            <result name="forward" type="redirectAction" >/mrole</result>
+        </action>
+        
+        <action name="muser"  method="search" class="com.bytes.hrm.action.system.SysUsersAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success"  >/layoutuser/ManageUser.jsp</result>
+            <result name="error">/layoutuser/ManageUser.jsp</result>
+        </action>
+        
+        <action name="euser"   method="edit"  class="com.bytes.hrm.action.system.SysUsersAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutuser/EditUser.jsp</result>
+            <result name="forward" type="redirectAction" >/muser</result>
+        </action>
+        
+        <action name="guser"   method="getSelected"  class="com.bytes.hrm.action.system.SysUsersAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutuser/EditUser.jsp</result>
+            <result name="forward" type="redirectAction" >/muser</result>
+        </action>
+            
+        <action name="ouser"    class="com.bytes.hrm.action.system.SysUsersAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutuser/AddUser.jsp</result>
+            <result name="forward" type="redirectAction" >/muser</result>
+        </action>
+            
+        <action name="auser"    method="save" class="com.bytes.hrm.action.system.SysUsersAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">/layoutcommon/Login.jsp</result>
+            <result name="success">/layoutuser/AddUser.jsp</result>          
+            <result name="forward" type="redirectAction" >/muser</result>
+        </action>
+       
+      
+
+        <!--End-->
+    </package>
+</struts>

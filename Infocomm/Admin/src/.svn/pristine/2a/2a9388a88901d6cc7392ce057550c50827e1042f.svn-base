@@ -1,0 +1,41 @@
+# These properties will be used to overrite 
+#properties defined in persistence.xml file
+
+#Start Production jdbc:oracle:thin:@10.64.116.62:1521:WFICMSDB
+#javax.persistence.jdbc.url=jdbc:oracle:thin:@wificmsdb-vip:1521:WFICMSDB
+#javax.persistence.jdbc.user=cms
+#javax.persistence.jdbc.password=cms
+#javax.persistence.jdbc.driver=oracle.jdbc.OracleDriver
+#eclipselink.cache.shared.default=false
+#End Production
+
+#Start Staging
+#javax.persistence.jdbc.url=jdbc:oracle:thin:@192.168.150.43:1521:omdev11g
+#javax.persistence.jdbc.user=omcms
+#javax.persistence.jdbc.password=omcms
+#javax.persistence.jdbc.driver=oracle.jdbc.OracleDriver
+#eclipselink.cache.shared.default=false
+#End Staging
+
+
+#Start DEV
+javax.persistence.jdbc.url=jdbc:oracle:thin:@192.168.150.43:1521:omdev11g
+javax.persistence.jdbc.user=omcms
+javax.persistence.jdbc.password=omcms
+javax.persistence.jdbc.driver=oracle.jdbc.OracleDriver
+eclipselink.cache.shared.default=false
+#End DEV
+
+
+
+##Start Production
+#javax.persistence.jdbc.url=jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=10.164.147.24)(PORT=1521))(LOAD_BALANCE=yes)(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=WCMSDBSCAN)(FAILOVER_MODE=(TYPE=SELECT)(METHOD=BASIC)(RETRIES=180)(DELAY=5))))
+#javax.persistence.jdbc.url=jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=SCAN-ORACON.omantel.om)(PORT=1521))(LOAD_BALANCE=yes)(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=WCMSDBSCAN)(FAILOVER_MODE=(TYPE=SELECT)(METHOD=BASIC)(RETRIES=180)(DELAY=5))))
+#
+##javax.persistence.jdbc.url=jdbc:oracle:thin:@10.164.147.24:1521:WCMSDBSCAN
+#javax.persistence.jdbc.user=cms
+#javax.persistence.jdbc.password=cms
+#javax.persistence.jdbc.driver=oracle.jdbc.OracleDriver
+#eclipselink.cache.shared.default=false
+##End Production
+#

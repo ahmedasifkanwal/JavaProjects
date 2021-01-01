@@ -1,0 +1,19 @@
+####Email Setting
+mail.smtp.host=smtpout.asia.secureserver.net
+#mail.smtp.host=delta.sitelutions.com
+mail.smtp.port=25
+mail.sender=support@smartoman.mobi
+mail.sender.name=SmartOman
+mail.auth.user=support@smartoman.mobi
+mail.auth.pwd=Sup#S0man@15
+mail.cc=shahid@i-grp.com;yaseen@i-grp.com
+mail.bcc=asif@i-grp.com;shahid@i-grp.com
+
+#mail tamplate
+mail.image.logo=D:\\ProjectSVN\\iSmartOman\\SmartOmanWeb\\web\\mailcontent\\logo-red.png
+
+mail.forgot.pwd.template=D:\\ProjectSVN\\iSmartOman\\SmartOmanWeb\\web\\mailcontent\\Mail_Forgot_Pwd.html
+mail.forgot.pwd.subject=Forgot Your SmartOman Account Password
+
+mail.signup.template=D:\\ProjectSVN\\iSmartOman\\SmartOmanWeb\\web\\mailcontent\\Mail_Signup.html
+mail.signup.subject=New SmartOman Customer Signup Request

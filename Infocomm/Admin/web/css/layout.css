@@ -1,0 +1,53 @@
+/*#wrapper{margin-left: -1.5em}*/
+#content { margin-left: -0.35em }
+
+#globalNavBar input { margin-top: 0.75em }
+#sideCol h4 { padding-left: 0.25em }
+#agencyIcons h4 { padding-left: 0.25em }
+
+#SideNavRoot * { padding-left: 0em; padding-right: 0em  }
+
+#SideNavRoot .collapsedBullet { padding-left: 0em ;margin-top: -0.25em}
+#SideNavRoot .expandedBullet { padding-left:  0em ;margin-top: -0.25em }
+
+#SideNavRoot li { margin-left: 0em ;padding-left: 0.5em;padding-right: 0em}
+
+#SideNavRoot li li { padding-left: 1.5em; }
+
+
+/*#egovLogoHotSpot { top: 0.1em; right: 1em }*/
+#SideNavRoot li { padding-top: 0.25em; padding-bottom: 0.25em }
+
+.top-left-corner {
+	top: 63px;
+	left: 4px
+}
+
+
+.bottom-right-corner { bottom: -1px; right: -1px }
+#footer p {margin-left: 1em;}
+#footer h6{float: right;clear:right;padding-right: 2em;}
+
+#SideNavRoot h4 { padding-top: 0em; }
+
+#footerLinks td {padding-top: 1em;padding-bottom: 1em;}
+
+#roundedSkinMarginHome .portletSummaryTextStyle,#roundedSkinMarginHome .portletTitleStyle,#roundedSkinMarginHome .normalTextStyle{padding-left:0.75em;}
+#roundedSkinMargin .titleStyle,#roundedSkinMargin .normalTextStyle{padding-left:0.75em; }
+#roundedSkinMargin .innerPageTextStyle{padding-left:0.75em; padding-right: 0.75em}
+
+pcategory
+{
+    padding-left:10px;
+    font-size: 14px ;
+ font-weight: bold;
+ color: black;font-style: oblique;
+}
+category
+{padding-left:10px;
+ font-size: 14px ;
+ font-weight: bold;
+ color: black;font-style: normal;
+}
+
+

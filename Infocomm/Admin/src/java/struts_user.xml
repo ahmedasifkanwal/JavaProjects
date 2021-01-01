@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <constant name="struts.custom.i18n.resources" value="message" />
+
+    <constant name="struts.devMode" value="true" />
+    <constant name="struts.action.extension" value="icms"/>
+    <constant name="struts.multipart.maxSize" value="22020000" />
+    <constant name="struts.convention.result.path" value="/"></constant>
+    <package name="defaultUser" extends="struts-default"   namespace="/">
+
+        <result-types>
+            <result-type name="tiles"
+                         class="org.apache.struts2.views.tiles.TilesResult" />
+        </result-types>
+        <interceptors>
+            <interceptor name="SessionCheck" class="com.info.cms.interceptor.SessionCheckInterceptor"/>
+            <interceptor-stack name="sessionExpirayStack">
+                <interceptor-ref name="SessionCheck" />
+                <interceptor-ref name="defaultStack" />
+                
+             
+            </interceptor-stack>
+        </interceptors>
+        <default-action-ref name="common.page.not.found" ></default-action-ref>
+        <global-results>
+            <result name="GLOBALERROR" >/layoutcommon/GlobalError.jsp</result>
+        </global-results>
+        <action name="common.page.not.found" >
+            <interceptor-ref name="sessionExpirayStack">
+            </interceptor-ref>
+            <result name="invalidsession">Login.jsp</result>
+            <result name="success" >/layoutcommon/PageNotFound.jsp</result>
+        </action>
+
+
+        
+        <action name="addrole"  class="com.info.cms.action.SysAuthorityAction">
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">Login.jsp</result>
+            <result name="success" type="tiles">/addrole.tiles</result>
+            <result name="forward" type="redirectAction" >/searchrole</result>
+        </action>
+
+        <action name="searchrole" method="search" class="com.info.cms.action.SysAuthorityAction">
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">Login.jsp</result>
+            <result name="success" type="tiles">/searchrole.tiles</result>
+        </action>
+
+        <action name="editrole" class="com.info.cms.action.SysAuthorityAction">
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">Login.jsp</result>
+            <result name="success" type="tiles">/editrole.tiles</result>
+            <result name="forward" type="redirectAction" >/searchrole</result>
+        </action>
+        
+        <action name="loginsuccess" method="execute" class="com.info.cms.action.LoginAction" >
+            <result name="success" type="redirectAction" >dashboard</result>
+            <result name="successbusiness" type="redirectAction" >dashboardbusiness</result>
+            <result name="error">Login.jsp</result>
+        </action>
+
+        <action name="dashboardbusiness" method="search" class="com.info.cms.report.graph.action.ChartAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">Login.jsp</result>
+            <result name="success" type="tiles" >/dashboardbusiness.tiles</result>
+            <result name="error">Login.jsp</result>
+        </action>
+
+        <action name="dashboard" method="search" class="com.info.cms.report.graph.action.ChartAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">Login.jsp</result>
+            <result name="success" type="tiles" >/dashboard.tiles</result>
+            <result name="error">Login.jsp</result>
+        </action>
+        
+        <action name="createsysuser" class="com.info.cms.action.SysUsersAccountAction">
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">Login.jsp</result>
+            <result name="success" type="tiles">/createsysuser.tiles</result>
+            <result name="forward" type="redirectAction" >/searchusers</result>
+        </action>
+
+        <action name="searchusers" method="search" class="com.info.cms.action.SysUsersAccountAction">
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">Login.jsp</result>
+            <result name="success" type="tiles">/searchusers.tiles</result>
+        </action>
+
+        <action name="assignpermission"  method="getSelected" class="com.info.cms.action.SysUsersAccountPermissionAction">
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">Login.jsp</result>
+            <result name="success" type="tiles">/assignpermission.tiles</result>
+        </action>
+        
+        <action name="loginlogouthistory" method="userLoginLogoutHistory" class="com.info.cms.action.SysUsersAccountAction">
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">Login.jsp</result>
+            <result name="success" type="tiles">/loginlogouthistory.tiles</result>
+        </action>
+
+        <action name="updatesysuser" method="getSelectedUser"  class="com.info.cms.action.SysUsersAccountAction">
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">Login.jsp</result>
+            <result name="success" type="tiles">/updatesysuser.tiles</result>
+            <result name="forward" type="redirectAction" >/searchusers</result>
+        </action>
+        
+        <action name="changeuserpassword" class="com.info.cms.action.SysUsersAccountAction">
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">Login.jsp</result>
+            <result name="success" type="tiles">/changeuserpassword.tiles</result>
+
+        </action>
+        <action name="resetpassword" class="com.info.cms.action.SysUsersAccountAction">
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">Login.jsp</result>
+            <result name="success" type="tiles">/resetpassword.tiles</result>
+        </action>
+
+        <action name="auditlog" method= "search" class="com.info.cms.action.AuditLogAction">
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">Login.jsp</result>
+            <result name="success" type="tiles">/auditlog.tiles</result>
+        </action>
+        
+        <action name="syserror"   method="searchSyserror" class="com.info.cms.action.AuditLogAction">
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">Login.jsp</result>
+            <result name="success" type="tiles">/syserror.tiles</result>
+        </action>
+
+
+        <action name="loginstatictics"  method="getLoginStatictics" class="com.info.cms.report.graph.action.ChartAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">Login.jsp</result>
+            <result name="success" type="tiles" >/loginstatictics.tiles</result>
+            <result name="error">Login.jsp</result>
+        </action>
+
+        <action name="datautilization"  method="getDataUtilization" class="com.info.cms.report.graph.action.ChartAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">Login.jsp</result>
+            <result name="success" type="tiles" >/datautilization.tiles</result>
+            <result name="error">Login.jsp</result>
+        </action>
+
+
+        <action name="datautilizationbyuser"  method="getDataUtilizationByUser" class="com.info.cms.report.graph.action.ChartAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">Login.jsp</result>
+            <result name="success" type="tiles" >/datautilizationbyuser.tiles</result>
+            <result name="error">Login.jsp</result>
+        </action>
+
+
+
+        <action name="outgoingsms"  method="getOutgoingSMS" class="com.info.cms.report.graph.action.ChartAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">Login.jsp</result>
+            <result name="success" type="tiles" >/outgoingsms.tiles</result>
+            <result name="error">Login.jsp</result>
+        </action>
+
+        <action name="internationalsms"  method="getInternationalSMS" class="com.info.cms.report.graph.action.ChartAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">Login.jsp</result>
+            <result name="success" type="tiles" >/internationalsms.tiles</result>
+            <result name="error">Login.jsp</result>
+        </action>
+
+
+
+
+        <action name="smsstatus"  method="getSMSByStatus" class="com.info.cms.report.graph.action.ChartAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">Login.jsp</result>
+            <result name="success" type="tiles" >/smsstatus.tiles</result>
+            <result name="error">Login.jsp</result>
+        </action>
+
+        <action name="onlineusers"  method="getSMSByStatus" class="com.info.cms.report.graph.action.ChartAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">Login.jsp</result>
+            <result name="success" type="tiles" >/onlineusers.tiles</result>
+            <result name="error">Login.jsp</result>
+        </action>
+
+
+
+
+        <action name="connectedvslogin"  method="getConnectedvsLogin" class="com.info.cms.report.graph.action.ChartAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">Login.jsp</result>
+            <result name="success" type="tiles" >/connectedvslogin.tiles</result>
+            <result name="error">Login.jsp</result>
+        </action>
+
+
+
+
+        <!--End-->
+         <!--CR#: WIFi001-->
+             <action name="kioskwifiaccount"  method="searchKioskUser" class="com.info.cms.action.WifiAccountAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">Login.jsp</result>
+            <result name="success" type="tiles" >/kioskwifiaccount.tiles</result>
+            <result name="error">Login.jsp</result>
+        </action>
+        <!--End-->
+         <!--CR#: WIFi002-->
+             <action name="kioskstatistics"  method="searchKioskStatistic" class="com.info.cms.action.WifiAccountAction" >
+            <interceptor-ref name="sessionExpirayStack"></interceptor-ref>
+            <result name="invalidsession">Login.jsp</result>
+            <result name="success" type="tiles" >/kioskstatistics.tiles</result>
+            <result name="error">Login.jsp</result>
+        </action>
+             <!--CR#: WIFi002-->
+    </package>
+</struts>

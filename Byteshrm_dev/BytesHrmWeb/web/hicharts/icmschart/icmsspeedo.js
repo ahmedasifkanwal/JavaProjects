@@ -1,0 +1,115 @@
+
+jQuery.noConflict();
+
+var example = 'gauge-speedometer',
+        theme = 'default';
+
+(function($) { // encapsulate jQuery
+    $(function() {
+
+        $('#G_ID').highcharts({
+            chart: {
+                type: 'gauge',
+                plotBackgroundColor: null,
+                plotBackgroundImage: null,
+                plotBorderWidth: 0,
+                plotShadow: false
+            },
+            title: {
+                text: ''
+            },
+            pane: {
+                startAngle: -150,
+                endAngle: 150,
+                background: [{
+                        backgroundColor: {
+                            linearGradient: {x1: 0, y1: 0, x2: 0, y2: 1},
+                            stops: [
+                                [0, '#FFF'],
+                                [1, '#333']
+                            ]
+                        },
+                        borderWidth: 0,
+                        outerRadius: '10%'
+                    }, {
+                        backgroundColor: {
+                            linearGradient: {x1: 0, y1: 0, x2: 0, y2: 1},
+                            stops: [
+                                [0, '#333'],
+                                [1, '#FFF']
+                            ]
+                        },
+                        borderWidth: 1,
+                        outerRadius: '10%'
+                    }, {
+                        // default background
+                    }, {
+                        backgroundColor: '#DDD',
+                        borderWidth: 0,
+                        outerRadius: '10%',
+                        innerRadius: '10%'
+                    }]
+            },
+            // the value axis
+            yAxis: {
+                min: 0,
+                max: 2000,
+                minorTickInterval: 'auto',
+                minorTickWidth: 1,
+                minorTickLength: 10,
+                minorTickPosition: 'inside',
+                minorTickColor: '#666',
+                tickPixelInterval: 30,
+                tickWidth: 2,
+                tickPosition: 'inside',
+                tickLength: 10,
+                tickColor: '#666',
+                labels: {
+                    step: 2,
+                    rotation: 'auto'
+                },
+                title: {
+                    text: 'Live'
+                },
+                plotBands: [{
+                        from: 0,
+                        to: 5000,
+                        color: '#55BF3B' // green
+                    }, {
+                        from: 1000,
+                        to: 5000,
+                        color: '#DF5353' // red
+                    }]
+            },
+            series: [{
+                    name: 'Connected',
+                    data: [G_DATA],
+                    tooltip: {
+                        valueSuffix: ' Devices'
+                    }
+                }]
+
+        },
+        // Add some life
+        function(chart) {
+            if (!chart.renderer.forExport) {
+                setInterval(function() {
+
+                    $.ajax({
+                        type: "POST",
+                        url: "G_JSON_URL",
+                        //data: "{cCardDropDown: document.getElementById('cCardDropDown').value, selection: 'FCDT'}",
+                        success: function(data) {
+                            var output = $.parseJSON(data);
+                            newVal = output.LiveLogginUser;
+
+                            var point = chart.series[0].points[0], newVal, inc = Math.round((1) * 20);
+                            point.update(newVal);
+
+                        }
+                    });
+                }, G_REFRESH_TIME);
+            }
+        });
+    });
+})(jQuery);
